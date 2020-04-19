@@ -48,5 +48,21 @@ class Swarmflow(Workflow):
         m_dict['sf_id'] = self.sf_id
         return m_dict
 
+    @classmethod
+    def from_Firework(cls, fw, name=None, metadata=None, sf_id=None):
+        """
+        Return Workflow from the given Firework.
 
+        Args:
+            fw (Firework)
+            name (str): New workflow's name. if not provided, the firework name is used
+            sf_id (int): Id of the Swarmflow
+            metadata (dict): New workflow's metadata.
 
+        Returns:
+            Swarmflow
+        """
+
+        name = name if name else fw.name
+        return Swarmflow([fw], name=name, metadata=metadata, created_on=fw.created_on,
+                         updated_on=fw.updated_on, sf_id=sf_id)
