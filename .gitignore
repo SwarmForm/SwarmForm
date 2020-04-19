@@ -1,2 +1,7 @@
 # Pycharm
 .idea/*
+
+*__pycache__/
+*.pyc
+
+FW.json
