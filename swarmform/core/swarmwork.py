@@ -17,14 +17,14 @@ class Swarmflow(Workflow):
             sf_id (int): Swarmflow id
         """
 
-        # TODO: sf_id must be provided to make sure there are no errors. When calling add_wf, sf_id is explicitly set
-        #  as it doesn't use a Workflow object
+        super().__init__(fireworks, links_dict, name, metadata, created_on, updated_on, fw_states)
+
         if sf_id is not None:
             self.sf_id = sf_id
 
         self.fw_costs = self.metadata['costs'] if 'costs' in self.metadata else {}
 
-        super().__init__(fireworks, links_dict, name, metadata, created_on, updated_on, fw_states)
+
 
     def _reassign_ids(self, old_new):
         """
