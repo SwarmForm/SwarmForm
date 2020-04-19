@@ -7,10 +7,10 @@ class Swarmflow(Workflow):
                  fw_states=None, sf_id=None):
         """
         Args:
-            fireworks ([Firework]): all FireWorks in this workflow.
+            fireworks ([Firework]): all FireWorks in this Swarmflow.
             links_dict (dict): links between the FWs as (parent_id):[(child_id1, child_id2)]
-            name (str): name of workflow.
-            metadata (dict): metadata for this Workflow.
+            name (str): name of the Swarmflow.
+            metadata (dict): metadata for this Swarmflow.
             created_on (datetime): time of creation
             updated_on (datetime): time of update
             fw_states (dict): leave this alone unless you are purposefully creating a Lazy-style WF
@@ -51,13 +51,13 @@ class Swarmflow(Workflow):
     @classmethod
     def from_Firework(cls, fw, name=None, metadata=None, sf_id=None):
         """
-        Return Workflow from the given Firework.
+        Return Swarmflow from the given Firework.
 
         Args:
             fw (Firework)
-            name (str): New workflow's name. if not provided, the firework name is used
+            name (str): New swarmflow's name. if not provided, the firework name is used
             sf_id (int): Id of the Swarmflow
-            metadata (dict): New workflow's metadata.
+            metadata (dict): New swarmflow's metadata.
 
         Returns:
             Swarmflow
