@@ -3,6 +3,7 @@ import datetime
 from fireworks import LaunchPad, Firework
 from fireworks.core.launchpad import LazyFirework
 from fireworks.fw_config import GRIDFS_FALLBACK_COLLECTION
+from swarmform.core.swarmwork import Swarmflow
 
 
 class SwarmPad(LaunchPad):
@@ -34,7 +35,7 @@ class SwarmPad(LaunchPad):
 				self.db.drop_collection(
 					"{}.files".format(GRIDFS_FALLBACK_COLLECTION))
 			self.tuneup()
-			self.m_logger.info('LaunchPad was RESET.')
+			self.m_logger.info('SwarmPad was RESET.')
 		elif not require_password:
 			raise ValueError(
 				"Password check cannot be overridden since the size of DB ({} workflows) "
@@ -57,15 +58,15 @@ class SwarmPad(LaunchPad):
 		"""
 
 		# Set a new workflow Id, if an id is not provided
-		if not hasattr(sf, 'wf_id'):
+		if not hasattr(sf, 'sf_id'):
 			sf.sf_id = self.get_new_sf_id()
-			self.m_logger.info('Create a new workflow with workflow_id: {}'.format(sf.wf_id))
+			self.m_logger.info('Create a new workflow with workflow_id: {}'.format(sf.sf_id))
 		else:
-			self.m_logger.info('Created a new workflow with workflow_id: {}'.format(sf.wf_id))
+			self.m_logger.info('Created a new workflow with workflow_id: {}'.format(sf.sf_id))
 
 		# Check whether the passed workflow is an individual firework
 		if isinstance(sf, Firework):
-			sf = Workflow.from_Firework(fw=sf, sf_id=sf.sf_id)
+			sf = Swarmflow.from_Firework(fw=sf, sf_id=sf.sf_id)
 
 		# sets the root FWs as READY
 		# prefer to wf.refresh() for speed reasons w/many root FWs
@@ -84,37 +85,38 @@ class SwarmPad(LaunchPad):
 
 	def get_new_sf_id(self, quantity=1):
 		"""
-		Checkout the next Workflow id
+		Checkout the next Swarmflow id
 		Args:
 			quantity (int): optionally ask for many ids, otherwise defaults to 1
 							this then returns the *first* wf_id in that range
 		"""
 		try:
 			return self.fw_id_assigner.find_one_and_update({}, {
-				'$inc': {'next_wf_id': quantity}})['next_wf_id']
+				'$inc': {'next_sf_id': quantity}})['next_sf_id']
 		except Exception:
 			raise ValueError(
-				"Could not get next Workflow id! If you have not yet initialized the database,"
-				" please do so by performing a database reset (e.g., lpad reset)")
+				"Could not get next Swarmflow id! If you have not yet initialized the database,"
+				" please do so by performing a database reset (e.g., swarmpad reset)")
 
-	def _restart_ids(self, next_fw_id, next_launch_id, next_wf_id):
+	def _restart_ids(self, next_fw_id, next_launch_id, next_sf_id):
 		"""
 		internal method used to reset firework id counters.
 		Args:
 			next_fw_id (int): id to give next Firework
 			next_launch_id (int): id to give next Launch
+			next_sf_id (int): id to give next Swarmflow
 		"""
 		self.fw_id_assigner.delete_many({})
 		self.fw_id_assigner.find_one_and_replace({'_id': -1},
 												 {'next_fw_id': next_fw_id,
 												  'next_launch_id': next_launch_id,
-												  'next_wf_id': next_wf_id},
+												  'next_sf_id': next_sf_id},
 												 upsert=True)
 		self.m_logger.debug(
-			'RESTARTED fw_id, launch_id to ({}, {})'.format(next_fw_id,
-															next_launch_id))
-########
-	def get_wf_by_fw_id(self, fw_id):
+			'RESTARTED fw_id, launch_id to ({}, {}, {})'.format(next_fw_id,
+																next_launch_id, next_sf_id))
+
+	def get_sf_by_fw_id(self, fw_id):
 		"""
 		Given a Firework id, give back the Swarmflow containing that Firework.
 
@@ -129,11 +131,11 @@ class SwarmPad(LaunchPad):
 			raise ValueError(
 				"Could not find a Workflow with fw_id: {}".format(fw_id))
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Workflow(fws, links_dict['links'], links_dict['name'],
+		return Swarmflow(fws, links_dict['links'], links_dict['name'],
 						links_dict['metadata'], links_dict['created_on'],
 						links_dict['updated_on'], None, links_dict['sf_id'])
-#############
-	def get_wf_by_fw_id_lzyfw(self, fw_id):
+
+	def get_sf_by_fw_id_lzyfw(self, fw_id):
 		"""
 		Given a FireWork id, give back the Swarmflow containing that FireWork.
 
@@ -159,7 +161,7 @@ class SwarmPad(LaunchPad):
 		else:
 			fw_states = None
 
-		return Workflow(fws, links_dict['links'], links_dict['name'],
+		return Swarmflow(fws, links_dict['links'], links_dict['name'],
 						links_dict['metadata'], links_dict['created_on'],
 						links_dict['updated_on'], fw_states, links_dict['sf_id'])
 
@@ -178,7 +180,7 @@ class SwarmPad(LaunchPad):
 				"Could not find a Workflow with sf_id: {}".format(sf_id))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Workflow(fws, links_dict['links'], links_dict['name'],
+		return Swarmflow(fws, links_dict['links'], links_dict['name'],
 						links_dict['metadata'], links_dict['created_on'],
 						links_dict['updated_on'], None, links_dict['sf_id'])
 
@@ -198,8 +200,6 @@ class SwarmPad(LaunchPad):
 				"Could not find a Workflow with wf_name: {}".format(wf_name))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Workflow(fws, links_dict['links'], links_dict['name'],
+		return Swarmflow(fws, links_dict['links'], links_dict['name'],
 						links_dict['metadata'], links_dict['created_on'],
 						links_dict['updated_on'], None, links_dict['sf_id'])
-
-
