@@ -1,9 +1,10 @@
 # coding: utf-8
 
 from __future__ import unicode_literals
-from fireworks import ScriptTask
+from fireworks import ScriptTask, explicit_serialize
 
 
+@explicit_serialize
 class ParallelTask(ScriptTask):
 	""" Combines multiple user defined ScriptTasks parallely"""
 	_fw_name = 'ParallelTask'
