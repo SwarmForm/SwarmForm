@@ -7,7 +7,6 @@ from fireworks import ScriptTask, explicit_serialize
 @explicit_serialize
 class ParallelTask(ScriptTask):
 	""" Combines multiple user defined ScriptTasks parallely"""
-	_fw_name = 'ParallelTask'
 	required_params = ['script']
 
 	@classmethod
