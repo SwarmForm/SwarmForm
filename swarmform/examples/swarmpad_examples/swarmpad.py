@@ -8,7 +8,7 @@ if __name__ == "__main__":
 	swarmpad.reset('', require_password=False)
 
 	# create the Firework consisting of a custom "Addition" task
-	firework = Firework(ScriptTask.from_str('echo "hello'))
+	firework = Firework(ScriptTask.from_str('echo "hello"'))
 
 	# store workflow
 	swarmpad.add_sf(firework)
@@ -17,7 +17,7 @@ if __name__ == "__main__":
 	sf = swarmpad.get_sf_by_id(1)
 	print(sf.to_db_dict())
 
-	sf = swarmpad.get_sf_by_name('Unnamed WF')
+	sf = swarmpad.get_sf_by_name('Unnamed FW')
 	print(sf.to_db_dict())
 
 	# Run the swarmFlow

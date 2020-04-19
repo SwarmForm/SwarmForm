@@ -197,7 +197,7 @@ class SwarmPad(LaunchPad):
 
 		if not links_dict:
 			raise ValueError(
-				"Could not find a Workflow with wf_name: {}".format(wf_name))
+				"Could not find a Swarmflow with wf_name: {}".format(wf_name))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
 		return Swarmflow(fws, links_dict['links'], links_dict['name'],
