@@ -117,14 +117,14 @@ def get_sum_0f_exec_time(cluster):
 def is_parent_already_assigned(task, parent_id):
 
     """
-                Checks weather the given node is already assigned as parent or not
+            Checks weather the given node is already assigned as parent or not
 
-                Args:
-                    task (Node)
-                    parent_id (fw_id)
+            Args:
+                task (Node)
+                parent_id (fw_id)
 
-                Returns:
-                    int
+            Returns:
+                int
     """
     parents = task.get_parents()
     for parent in parents:
@@ -136,14 +136,14 @@ def is_parent_already_assigned(task, parent_id):
 def is_child_already_assigned(task, child_id):
 
     """
-                    Checks weather the given node is already assigned as child or not
+            Checks weather the given node is already assigned as child or not
 
-                    Args:
-                        task (Node)
-                        child_id (fw_id)
+            Args:
+                task (Node)
+                child_id (fw_id)
 
-                    Returns:
-                        int
+            Returns:
+                int
     """
     children = task.get_children()
     for child in children:
@@ -332,12 +332,12 @@ def assign_parent_to_clusters(task):
 def resource_balance(clusters_at_level, tasks, wf):
 
     """
-                Perform resource balancing based on available resource on clustered nodes and update the workflow
+            Perform resource balancing based on available resource on clustered nodes and update the workflow
 
-                Args:
-                    wf (DAG)
-                    clusters_at_level (list(Node): Clustered nodes at a given level
-                    tasks (list(Node)): Nodes at a given level
+            Args:
+                wf (DAG)
+                clusters_at_level (list(Node): Clustered nodes at a given level
+                tasks (list(Node)): Nodes at a given level
 
     """
     # Iterate the task in level with the all the clustered nodes in the level and
@@ -389,9 +389,7 @@ def resource_balance(clusters_at_level, tasks, wf):
                     cluster.set_sequential_ids([cluster.get_fw_ids_to_cluster_sequentially()[0], key])
 
 
-
-
-def WPAclustering(workflow):
+def wpa_clustering(workflow):
 
     """
             WPA clustering alogirthm
