@@ -1,20 +1,20 @@
 from fireworks import Workflow
 
 
-class Swarmflow(Workflow):
+class SwarmFlow(Workflow):
 
     def __init__(self, fireworks, links_dict=None, name=None, metadata=None, created_on=None, updated_on=None,
                  fw_states=None, sf_id=None):
         """
         Args:
-            fireworks ([Firework]): all FireWorks in this Swarmflow.
+            fireworks ([Firework]): all FireWorks in this SwarmFlow.
             links_dict (dict): links between the FWs as (parent_id):[(child_id1, child_id2)]
-            name (str): name of the Swarmflow.
-            metadata (dict): metadata for this Swarmflow.
+            name (str): name of the SwarmFlow.
+            metadata (dict): metadata for this SwarmFlow.
             created_on (datetime): time of creation
             updated_on (datetime): time of update
             fw_states (dict): leave this alone unless you are purposefully creating a Lazy-style WF
-            sf_id (int): Swarmflow id
+            sf_id (int): SwarmFlow id
         """
 
         super().__init__(fireworks, links_dict, name, metadata, created_on, updated_on, fw_states)
@@ -51,18 +51,18 @@ class Swarmflow(Workflow):
     @classmethod
     def from_Firework(cls, fw, name=None, metadata=None, sf_id=None):
         """
-        Return Swarmflow from the given Firework.
+        Return SwarmFlow from the given Firework.
 
         Args:
             fw (Firework)
-            name (str): New swarmflow's name. if not provided, the firework name is used
-            sf_id (int): Id of the Swarmflow
-            metadata (dict): New swarmflow's metadata.
+            name (str): New SwarmFlow's name. if not provided, the firework name is used
+            sf_id (int): Id of the SwarmFlow
+            metadata (dict): New SwarmFlow's metadata.
 
         Returns:
-            Swarmflow
+            SwarmFlow
         """
 
         name = name if name else fw.name
-        return Swarmflow([fw], name=name, metadata=metadata, created_on=fw.created_on,
+        return SwarmFlow([fw], name=name, metadata=metadata, created_on=fw.created_on,
                          updated_on=fw.updated_on, sf_id=sf_id)

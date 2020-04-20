@@ -3,7 +3,7 @@ import datetime
 from fireworks import LaunchPad, Firework
 from fireworks.core.launchpad import LazyFirework
 from fireworks.fw_config import GRIDFS_FALLBACK_COLLECTION
-from swarmform.core.swarmwork import Swarmflow
+from swarmform.core.swarmwork import SwarmFlow
 
 
 class SwarmPad(LaunchPad):
@@ -18,7 +18,7 @@ class SwarmPad(LaunchPad):
 				false is dangerous because running code unintentionally could clear your DB - use
 				max_reset_wo_password to minimize risk.
 			max_reset_wo_password (int): A failsafe; when require_password is set to False,
-				FWS will not clear DBs that contain more Swarmflows than this parameter
+				FWS will not clear DBs that contain more SwarmFlows than this parameter
 		"""
 		m_password = datetime.datetime.now().strftime('%Y-%m-%d')
 
@@ -49,9 +49,9 @@ class SwarmPad(LaunchPad):
 
 	def add_sf(self, sf, reassign_all=True):
 		"""
-		Add Swarmflow(or firework) to the SwarmPad. The firework ids will be reassigned.
+		Add SwarmFlow(or firework) to the SwarmPad. The firework ids will be reassigned.
 		Args:
-			sf (Swarmflow/Firework)
+			sf (SwarmFlow/Firework)
 			reassign_all(bool): Reassign Firework ids
 		Returns:
 			dict: mapping between old and new Firework ids
@@ -66,7 +66,7 @@ class SwarmPad(LaunchPad):
 
 		# Check whether the passed workflow is an individual firework
 		if isinstance(sf, Firework):
-			sf = Swarmflow.from_Firework(fw=sf, sf_id=sf.sf_id)
+			sf = SwarmFlow.from_Firework(fw=sf, sf_id=sf.sf_id)
 
 		# sets the root FWs as READY
 		# prefer to wf.refresh() for speed reasons w/many root FWs
@@ -85,7 +85,7 @@ class SwarmPad(LaunchPad):
 
 	def get_new_sf_id(self, quantity=1):
 		"""
-		Checkout the next Swarmflow id
+		Checkout the next SwarmFlow id
 		Args:
 			quantity (int): optionally ask for many ids, otherwise defaults to 1
 							this then returns the *first* wf_id in that range
@@ -95,7 +95,7 @@ class SwarmPad(LaunchPad):
 				'$inc': {'next_sf_id': quantity}})['next_sf_id']
 		except Exception:
 			raise ValueError(
-				"Could not get next Swarmflow id! If you have not yet initialized the database,"
+				"Could not get next SwarmFlow id! If you have not yet initialized the database,"
 				" please do so by performing a database reset (e.g., swarmpad reset)")
 
 	def _restart_ids(self, next_fw_id, next_launch_id, next_sf_id):
@@ -104,7 +104,7 @@ class SwarmPad(LaunchPad):
 		Args:
 			next_fw_id (int): id to give next Firework
 			next_launch_id (int): id to give next Launch
-			next_sf_id (int): id to give next Swarmflow
+			next_sf_id (int): id to give next SwarmFlow
 		"""
 		self.fw_id_assigner.delete_many({})
 		self.fw_id_assigner.find_one_and_replace({'_id': -1},
@@ -118,32 +118,32 @@ class SwarmPad(LaunchPad):
 
 	def get_sf_by_fw_id(self, fw_id):
 		"""
-		Given a Firework id, give back the Swarmflow containing that Firework.
+		Given a Firework id, give back the SwarmFlow containing that Firework.
 
 		Args:
 			fw_id (int)
 
 		Returns:
-			A Swarmflow object
+			A SwarmFlow object
 		"""
 		links_dict = self.workflows.find_one({'nodes': fw_id})
 		if not links_dict:
 			raise ValueError(
 				"Could not find a Workflow with fw_id: {}".format(fw_id))
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Swarmflow(fws, links_dict['links'], links_dict['name'],
-						links_dict['metadata'], links_dict['created_on'],
-						links_dict['updated_on'], None, links_dict['sf_id'])
+		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
+						 links_dict['metadata'], links_dict['created_on'],
+						 links_dict['updated_on'], None, links_dict['sf_id'])
 
 	def get_sf_by_fw_id_lzyfw(self, fw_id):
 		"""
-		Given a FireWork id, give back the Swarmflow containing that FireWork.
+		Given a FireWork id, give back the SwarmFlow containing that FireWork.
 
 		Args:
 			fw_id (int)
 
 		Returns:
-			A Swarmflow object
+			A SwarmFlow object
 		"""
 		links_dict = self.workflows.find_one({'nodes': fw_id})
 		if not links_dict:
@@ -161,17 +161,17 @@ class SwarmPad(LaunchPad):
 		else:
 			fw_states = None
 
-		return Swarmflow(fws, links_dict['links'], links_dict['name'],
-						links_dict['metadata'], links_dict['created_on'],
-						links_dict['updated_on'], fw_states, links_dict['sf_id'])
+		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
+						 links_dict['metadata'], links_dict['created_on'],
+						 links_dict['updated_on'], fw_states, links_dict['sf_id'])
 
 	def get_sf_by_id(self, sf_id):
 		"""
-		Given a Swarmflow id, give back the Swarmflow.
+		Given a SwarmFlow id, give back the SwarmFlow.
 		Args:
 			sf_id (int)
 		Returns:
-			A Swarmflow object
+			A SwarmFlow object
 		"""
 		links_dict = self.workflows.find_one({'sf_id': sf_id})
 
@@ -180,26 +180,26 @@ class SwarmPad(LaunchPad):
 				"Could not find a Workflow with sf_id: {}".format(sf_id))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Swarmflow(fws, links_dict['links'], links_dict['name'],
-						links_dict['metadata'], links_dict['created_on'],
-						links_dict['updated_on'], None, links_dict['sf_id'])
+		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
+						 links_dict['metadata'], links_dict['created_on'],
+						 links_dict['updated_on'], None, links_dict['sf_id'])
 
 	def get_sf_by_name(self, wf_name):
 		"""
-		Given a Swarmflow name, give back the Swarmflow.
+		Given a SwarmFlow name, give back the SwarmFlow.
 		Args:
 			wf_name (string)
 		Returns:
-			A Swarmflow Object
+			A SwarmFlow Object
 		"""
 
 		links_dict = self.workflows.find_one({'name': wf_name})
 
 		if not links_dict:
 			raise ValueError(
-				"Could not find a Swarmflow with wf_name: {}".format(wf_name))
+				"Could not find a SwarmFlow with wf_name: {}".format(wf_name))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return Swarmflow(fws, links_dict['links'], links_dict['name'],
-						links_dict['metadata'], links_dict['created_on'],
-						links_dict['updated_on'], None, links_dict['sf_id'])
+		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
+						 links_dict['metadata'], links_dict['created_on'],
+						 links_dict['updated_on'], None, links_dict['sf_id'])
