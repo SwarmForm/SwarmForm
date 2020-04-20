@@ -125,8 +125,8 @@ class DAG:
             sf(SwarmFlow): SwarmFlow object
         """
 
-        self._dag_id = sf.wf_id
-        self._dag_name = sf.name or "Unnamed-WF"
+        self._dag_id = sf.sf_id
+        self._dag_name = sf.name or "Unnamed-SF"
         self._nodes = {}  # dictionary in format of {fw_id: Node}
         parents_dict = {}
 

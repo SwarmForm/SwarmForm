@@ -13,7 +13,7 @@ if __name__ == "__main__":
 	# store workflow
 	swarmpad.add_sf(firework)
 
-	# Retrieve swarmflow from the swarmpad and print
+	# Retrieve SwarmFlow from the SwarmPad and print
 	sf = swarmpad.get_sf_by_id(1)
 	print(sf.to_db_dict())
 

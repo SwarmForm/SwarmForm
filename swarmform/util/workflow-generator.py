@@ -3,7 +3,7 @@ import os
 import yaml
 
 from fireworks import Firework, ScriptTask
-from swarmform.core.swarmwork import Swarmflow
+from swarmform.core.swarmwork import SwarmFlow
 
 
 # Read input from YAML file
@@ -139,7 +139,7 @@ def main():
     fireworks = create_scripts(dir_name, jobs)
     dependencies = create_dependencies(jobs, fireworks)
     metadata = create_metadata(jobs, fireworks)
-    swarmflow = Swarmflow(fireworks=fireworks, links_dict=dependencies, metadata=metadata, name=swarmflow_name)
+    swarmflow = SwarmFlow(fireworks=fireworks, links_dict=dependencies, metadata=metadata, name=swarmflow_name)
     dump_swarmflow(swarmflow, dir_name, swarmflow_name)
 
 
