@@ -184,20 +184,20 @@ class SwarmPad(LaunchPad):
 						 links_dict['metadata'], links_dict['created_on'],
 						 links_dict['updated_on'], None, links_dict['sf_id'])
 
-	def get_sf_by_name(self, wf_name):
+	def get_sf_by_name(self, sf_name):
 		"""
 		Given a SwarmFlow name, give back the SwarmFlow.
 		Args:
-			wf_name (string)
+			sf_name (string)
 		Returns:
 			A SwarmFlow Object
 		"""
 
-		links_dict = self.workflows.find_one({'name': wf_name})
+		links_dict = self.workflows.find_one({'name': sf_name})
 
 		if not links_dict:
 			raise ValueError(
-				"Could not find a SwarmFlow with wf_name: {}".format(wf_name))
+				"Could not find a SwarmFlow with sf_name: {}".format(sf_name))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
 		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
