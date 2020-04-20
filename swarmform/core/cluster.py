@@ -5,14 +5,14 @@ from random import randrange
 def get_tasks_at_level(workflow, level):
 
     """
-            return the tasks at given level
+    return the tasks at given level
 
-            Args:
-                workflow (DAG): DAG object of workflow
-                level (int): level which output tasks needed to be
+    Args:
+        workflow (DAG): DAG object of workflow
+        level (int): level which output tasks needed to be
 
-            Returns:
-                list(Node)
+    Returns:
+        list(Node)
     """
     tasks = []
     for task in workflow.get_nodes():
@@ -24,13 +24,13 @@ def get_tasks_at_level(workflow, level):
 def get_longest_parent(task):
 
     """
-            Returns the parent of the given task which has the longest execution time
+    Returns the parent of the given task which has the longest execution time
 
-            Args:
-                task (Node)
+    Args:
+        task (Node)
 
-            Returns:
-                Node
+    Returns:
+        Node
     """
     longest_parent = task.get_parents()[0]
     for parent in task.get_parents():
@@ -42,13 +42,13 @@ def get_longest_parent(task):
 def sort_tasks_by_longest_parent(tasks):
 
     """
-            Sort the list of tasks considering the longest parents of the tasks
+    Sort the list of tasks considering the longest parents of the tasks
 
-            Args:
-                tasks (list(Node))
+    Args:
+        tasks (list(Node))
 
-            Returns:
-                list(Node)
+    Returns:
+        list(Node)
     """
     n = len(tasks)
     if len(tasks) == 1:
@@ -63,13 +63,13 @@ def sort_tasks_by_longest_parent(tasks):
 def sort_tasks_by_exec_time(tasks):
 
     """
-            Sort tasks in descending order by the execution time
+    Sort tasks in descending order by the execution time
 
-            Args:
-                tasks (list(Node)
+    Args:
+        tasks (list(Node)
 
-            Returns:
-                list(Node)
+    Returns:
+        list(Node)
     """
     n = len(tasks)
     for i in range(n):
@@ -82,13 +82,13 @@ def sort_tasks_by_exec_time(tasks):
 def get_unassigned_parents(tasks):
 
     """
-            Returns a list of unassigned tasks from a given list of tasks
+    Returns a list of unassigned tasks from a given list of tasks
 
-            Args:
-                tasks (list(Node))
+    Args:
+        tasks (list(Node))
 
-            Returns:
-                list(Node)
+    Returns:
+        list(Node)
     """
     parents = []
     for parent in tasks.get_parents():
@@ -100,13 +100,13 @@ def get_unassigned_parents(tasks):
 def get_sum_0f_exec_time(cluster):
 
     """
-            Returns the sum of execution time from a given list of tasks
+    Returns the sum of execution time from a given list of tasks
 
-            Args:
-                cluster (list(Node))
+    Args:
+        cluster (list(Node))
 
-            Returns:
-                int
+    Returns:
+        int
     """
     exec_sum = 0
     for task in cluster:
@@ -117,14 +117,14 @@ def get_sum_0f_exec_time(cluster):
 def is_parent_already_assigned(task, parent_id):
 
     """
-            Checks weather the given node is already assigned as parent or not
+    Checks weather the given node is already assigned as parent or not
 
-            Args:
-                task (Node)
-                parent_id (fw_id)
+    Args:
+        task (Node)
+        parent_id (fw_id)
 
-            Returns:
-                int
+    Returns:
+        int
     """
     parents = task.get_parents()
     for parent in parents:
@@ -136,14 +136,14 @@ def is_parent_already_assigned(task, parent_id):
 def is_child_already_assigned(task, child_id):
 
     """
-            Checks weather the given node is already assigned as child or not
+    Checks weather the given node is already assigned as child or not
 
-            Args:
-                task (Node)
-                child_id (fw_id)
+    Args:
+        task (Node)
+        child_id (fw_id)
 
-            Returns:
-                int
+    Returns:
+        int
     """
     children = task.get_children()
     for child in children:
@@ -155,13 +155,13 @@ def is_child_already_assigned(task, child_id):
 def assign_parent_to_clusters(task):
 
     """
-            Assign parent tasks of a given node to clusters
+    Assign parent tasks of a given node to clusters
 
-            Args:
-                task (Node)
+    Args:
+        task (Node)
 
-            Returns:
-                list of clustered Nodes
+    Returns:
+        list of clustered Nodes
     """
     cls = []
     c = 0
@@ -332,12 +332,12 @@ def assign_parent_to_clusters(task):
 def resource_balance(clusters_at_level, tasks, wf):
 
     """
-            Perform resource balancing based on available resource on clustered nodes and update the workflow
+    Perform resource balancing based on available resource on clustered nodes and update the workflow
 
-            Args:
-                wf (DAG)
-                clusters_at_level (list(Node): Clustered nodes at a given level
-                tasks (list(Node)): Nodes at a given level
+    Args:
+        wf (DAG)
+        clusters_at_level (list(Node): Clustered nodes at a given level
+        tasks (list(Node)): Nodes at a given level
 
     """
     # Iterate the task in level with the all the clustered nodes in the level and
@@ -392,13 +392,13 @@ def resource_balance(clusters_at_level, tasks, wf):
 def wpa_clustering(workflow):
 
     """
-            WPA clustering alogirthm
+    WPA clustering alogirthm
 
-            Args:
-                workflow (DAG)
+    Args:
+        workflow (DAG)
 
-            Returns:
-                Clustered workflow DAG (DAG)
+    Returns:
+        Clustered workflow DAG (DAG)
     """
     # Iterate the WF level by level
     for level in range(workflow.get_height(), 1, -1):
