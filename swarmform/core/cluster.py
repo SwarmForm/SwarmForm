@@ -117,7 +117,7 @@ def get_sum_0f_exec_time(cluster):
 def is_parent_already_assigned(task, parent_id):
 
     """
-    Checks weather the given node is already assigned as parent or not
+    Checks whether the given node is already assigned as parent or not
 
     Args:
         task (Node)
@@ -136,7 +136,7 @@ def is_parent_already_assigned(task, parent_id):
 def is_child_already_assigned(task, child_id):
 
     """
-    Checks weather the given node is already assigned as child or not
+    Checks whether the given node is already assigned as child or not
 
     Args:
         task (Node)
@@ -341,7 +341,7 @@ def resource_balance(clusters_at_level, tasks, wf):
 
     """
     # Iterate the task in level with the all the clustered nodes in the level and
-    # check weather is there any available space to fit in the clustered nodes
+    # check whether is there any available space to fit in the clustered nodes
     for task in tasks:
         parents = task.get_parents()
         for parent in parents:
