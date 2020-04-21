@@ -25,7 +25,6 @@ class SwarmFlow(Workflow):
         self.fw_costs = self.metadata['costs'] if 'costs' in self.metadata else {}
 
 
-
     def _reassign_ids(self, old_new):
         """
         Internal method to reassign Firework ids, e.g. due to database insertion.

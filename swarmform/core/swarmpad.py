@@ -88,7 +88,7 @@ class SwarmPad(LaunchPad):
 		Checkout the next SwarmFlow id
 		Args:
 			quantity (int): optionally ask for many ids, otherwise defaults to 1
-							this then returns the *first* wf_id in that range
+							this then returns the *first* sf_id in that range
 		"""
 		try:
 			return self.fw_id_assigner.find_one_and_update({}, {
