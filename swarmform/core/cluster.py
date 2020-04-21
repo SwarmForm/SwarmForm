@@ -91,22 +91,22 @@ def combine_fws_parallely(swarmpad, fw_ids):
 
 def update_parent_child_relationships(links_dict, old_id, new_id):
     """
-        Update the parent-child relationships after clustering a firework
-        by replacing all the instances of old_id with new_id
-        Args:
-            links_dict (list): Existing parent-child relationship list
-            old_id (int): Existing id of the firework
-            new_id (int): New id of the firework
+    Update the parent-child relationships after clustering a firework
+    by replacing all the instances of old_id with new_id
+    Args:
+        links_dict (list): Existing parent-child relationship list
+        old_id (int): Existing id of the firework
+        new_id (int): New id of the firework
 
-        Returns:
-            links_dict (list): Updated parent-child relationship list
-        """
+    Returns:
+        links_dict (list): Updated parent-child relationship list
+    """
 
     # Enumerate child ids and replace it with the new id
     for parent_id in links_dict:
         child_id_list = links_dict[parent_id]
-        for index, ID in enumerate(child_id_list):
-            if ID == old_id:
+        for index, child_id in enumerate(child_id_list):
+            if child_id == old_id:
                 child_id_list[index] = new_id
                 break
 
@@ -119,14 +119,14 @@ def update_parent_child_relationships(links_dict, old_id, new_id):
 def cluster_sf(swarmpad, sf_id):
 
     """
-            Pull the swarmflow from given sf_id and create a clustered swarmflow
+    Pull the swarmflow from given sf_id and create a clustered swarmflow
 
-            Args:
-                swarmpad (SwarmPad)
-                sf_id (int): id of the swarmflow to pull
+    Args:
+        swarmpad (SwarmPad)
+        sf_id (int): id of the swarmflow to pull
 
-            Returns:
-                Clustered_swarmflow (SwarmFlow)
+    Returns:
+        Clustered_swarmflow (SwarmFlow)
     """
     # Retrieve the relevant swarmflow from the swarmpad
     sf = swarmpad.get_sf_by_id(sf_id)
