@@ -1,5 +1,8 @@
 from fireworks import Firework, ScriptTask
 from swarmform import ParallelTask
+from swarmform.core.swarm_dag import DAG
+from swarmform.core.clustering_algo.wpa_clustering import wpa_clustering
+from swarmform.core.swarmwork import SwarmFlow
 
 
 def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallely_clustered_fw_ids):
@@ -111,3 +114,67 @@ def update_parent_child_relationships(links_dict, old_id, new_id):
     if old_id in links_dict:
         links_dict[new_id] = links_dict.pop(old_id)
     return links_dict
+
+
+def cluster_sf(swarmpad, sf_id):
+
+    """
+            Pull the swarmflow from given sf_id and create a clustered swarmflow
+
+            Args:
+                swarmpad (SwarmPad)
+                sf_id (int): id of the swarmflow to pull
+
+            Returns:
+                Clustered_swarmflow (SwarmFlow)
+    """
+    # Retrieve the relevant swarmflow from the swarmpad
+    sf = swarmpad.get_sf_by_id(sf_id)
+    sf_dag = DAG(sf)
+    # Cluster the swarmflow DAG
+    clustered_sf_dag = wpa_clustering(sf_dag)
+    # Get parent-child relationships of the clustered dag {cluster_id : [fw_ids] }
+    # eg: links {17: [18, 19, 21, 20], 18: [23], 19: [23], 21: [23], 20: [23]}
+    links_dict = clustered_sf_dag.get_parent_child_relationships()
+    # Get nodes of the clustered dag { cluster_id: Node }
+    nodes = clustered_sf_dag.get_nodes()
+    clustered_fws = []
+
+    for key in nodes:
+        # Dictionary of parallel clusters
+        fw_ids_to_cluster_parallely = nodes[key].get_fw_ids_to_cluster_parallely()
+        # List of sequential fireworks
+        fw_ids_to_cluster_sequentially = nodes[key].get_fw_ids_to_cluster_sequentially()
+
+        # List for storing parallely clustered fireworks
+        parallely_clustered_fws = []
+        # Dict for storing new firework id of the clustered firework with respect to its cluster id
+        parallely_clustered_fw_ids = {}
+
+        if len(fw_ids_to_cluster_parallely) != 0:
+            for cluster_id in fw_ids_to_cluster_parallely:
+                parallely_clustered_fw = combine_fws_parallely(swarmpad, fw_ids_to_cluster_parallely[cluster_id])
+                parallely_clustered_fws.append(parallely_clustered_fw)
+                parallely_clustered_fw_ids.update({cluster_id: parallely_clustered_fw.fw_id})
+
+        # Replace the cluster id in sequential fws to cluster with its new fw id
+        fw_ids_to_cluster_sequentially = [parallely_clustered_fw_ids.get(n, n) for n in
+                                          fw_ids_to_cluster_sequentially]
+
+        # If multiple fireworks are available, cluster them and to clustered_fws
+        if len(fw_ids_to_cluster_sequentially) > 1:
+            combined_fw = combine_fws_sequentially(swarmpad, fw_ids_to_cluster_sequentially, parallely_clustered_fws,
+                                                   parallely_clustered_fw_ids)
+            for fw_id in fw_ids_to_cluster_sequentially:
+                links_dict = update_parent_child_relationships(links_dict, fw_id, combined_fw.fw_id)
+
+        # If only a single firework is available, add it directly to clustered_fws
+        elif len(fw_ids_to_cluster_sequentially) == 0:
+            combined_fw = swarmpad.get_fw_by_id(nodes[key].get_fw_id())
+        else:
+            raise ValueError(
+                "Issue with the firework ids to cluster: {}".format(fw_ids_to_cluster_sequentially))
+        clustered_fws.append(combined_fw)
+
+    clustered_swarmflow = SwarmFlow(fireworks=clustered_fws, links_dict=links_dict)
+    return clustered_swarmflow
