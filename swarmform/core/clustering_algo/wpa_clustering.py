@@ -1,7 +1,6 @@
 from swarmform.core.swarm_dag import Node, DAG
 from random import randrange
 
-
 def get_tasks_at_level(workflow, level):
 
     """
@@ -411,13 +410,10 @@ def wpa_clustering(workflow):
         for task in tasks_at_level_sorted:
             # Assign parents of the task to the clusters
             cls = assign_parent_to_clusters(task)
-            cls_info = {}
             for cluster in cls:
                 cls_info = cluster.get_cluster_info()
-                temp = 0
+                temp_wfid = cluster.get_fw_id()
                 for wfid in cls_info:
-                    if temp == 0:
-                        temp_wfid = wfid
                     # Delete the tasks which are clustered from the WF
                     workflow.delete_node(wfid)
                 # Add new clustered node to the WF
@@ -428,8 +424,6 @@ def wpa_clustering(workflow):
         resource_balance(cls_at_level, tasks_at_level_sorted, workflow)
     workflow.update_links()
     return workflow
-
-
 
 
 
