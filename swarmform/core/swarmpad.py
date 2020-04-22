@@ -3,10 +3,38 @@ import datetime
 from fireworks import LaunchPad, Firework
 from fireworks.core.launchpad import LazyFirework
 from fireworks.fw_config import GRIDFS_FALLBACK_COLLECTION
+from fireworks.utilities.fw_serializers import serialize_fw
+
 from swarmform.core.swarmwork import SwarmFlow
 
 
 class SwarmPad(LaunchPad):
+
+	@classmethod
+	def from_dict(cls, d):
+		port = d.get('port', None)
+		name = d.get('name', None)
+		username = d.get('username', None)
+		password = d.get('password', None)
+		logdir = d.get('logdir', None)
+		strm_lvl = d.get('strm_lvl', None)
+		user_indices = d.get('user_indices', [])
+		wf_user_indices = d.get('wf_user_indices', [])
+		ssl = d.get('ssl', False)
+		ssl_ca_certs = d.get('ssl_ca_certs',
+							 d.get('ssl_ca_file',
+								   None))  # ssl_ca_file was the old notation for FWS < 1.5.5
+		ssl_certfile = d.get('ssl_certfile', None)
+		ssl_keyfile = d.get('ssl_keyfile', None)
+		ssl_pem_passphrase = d.get('ssl_pem_passphrase', None)
+		authsource = d.get('authsource', None)
+		uri_mode = d.get('uri_mode', False)
+		mongoclient_kwargs = d.get('mongoclient_kwargs', None)
+		return SwarmPad(d['host'], port, name, username, password,
+						logdir, strm_lvl, user_indices, wf_user_indices, ssl,
+						ssl_ca_certs, ssl_certfile, ssl_keyfile,
+						ssl_pem_passphrase,
+						authsource, uri_mode, mongoclient_kwargs)
 
 	def reset(self, password, require_password=True, max_reset_wo_password=25):
 		"""

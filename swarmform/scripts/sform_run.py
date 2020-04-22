@@ -2,19 +2,33 @@ import datetime
 import os
 import sys
 import traceback
+import json
+import yaml
+import six
 from argparse import ArgumentParser
 
-from fireworks.fw_config import LAUNCHPAD_LOC
+from fireworks.utilities.fw_serializers import recursive_dict, DATETIME_HANDLER
+from fireworks.scripts.lpad_run import init_yaml
+
 
 from swarmform import SwarmPad
 from swarmform.core.swarmwork import SwarmFlow
+from swarmform.sf_config import LAUNCHPAD_LOC, CONFIG_FILE_DIR
 
-DEFAULT_LPAD_YAML = "my_launchpad.yaml"
+DEFAULT_LPAD_YAML = "my_swarmpad.yaml"
 
 
 def handle_interrupt(signum):
     sys.stderr.write("Interrupted by signal {:d}\n".format(signum))
     sys.exit(1)
+
+
+def get_output_func(format):
+    if format == "json":
+        return lambda x: json.dumps(x, default=DATETIME_HANDLER, indent=4)
+    else:
+        return lambda x: yaml.safe_dump(recursive_dict(x, preserve_unicode=False),
+                                        default_flow_style=False)
 
 
 def get_sp(args):
@@ -56,10 +70,10 @@ def add_sf(args):
     sp = get_sp(args)
     if args.dir:
         files = []
-        for f in args.wf_file:
+        for f in args.sf_file:
             files.extend([os.path.join(f, i) for i in os.listdir(f)])
     else:
-        files = args.wf_file
+        files = args.sf_file
     for f in files:
         fwf = SwarmFlow.from_file(f)
         if args.check:
@@ -103,17 +117,65 @@ def sform():
                         help='Set output display format to either json or YAML. '
                              'YAML is easier to read for long documents. JSON is the default.')
 
+    parser.add_argument('-l', '--launchpad_file', help='path to LaunchPad file containing '
+                                                       'central DB connection info',
+                        default=None)
+    parser.add_argument('-c', '--config_dir',
+                        help='path to a directory containing the LaunchPad file (used if -l unspecified)',
+                        default=CONFIG_FILE_DIR)
+    parser.add_argument('--logdir', help='path to a directory for logging')
+    parser.add_argument('--loglvl', help='level to print log messages', default='INFO')
+    parser.add_argument('-s', '--silencer', help='shortcut to mute log messages', action='store_true')
+
     subparsers = parser.add_subparsers(help='command', dest='command')
 
-    addsf_parser = subparsers.add_parser('add', help='insert a SwarmFlow from file')
+    init_parser = subparsers.add_parser(
+        'init', help='Initialize a SwarmForm launchpad YAML file.')
+    init_parser.add_argument('-u', '--uri_mode',
+                             action="store_true",
+                             help="Connect via a URI, see: "
+                                  "https://docs.mongodb.com/manual/reference/connection-string/")
+    init_parser.add_argument('--config-file', default=DEFAULT_LPAD_YAML,
+                             type=str,
+                             help="Filename to write to.")
+    init_parser.set_defaults(func=init_yaml)
+
+    reset_parser = subparsers.add_parser('reset', help='Reset and re-initialize the SwarmForm database')
+    reset_parser.add_argument('--password', help="Today's date,  e.g. 2012-02-25. "
+                                                 "Password or positive response to input prompt "
+                                                 "required to protect against accidental reset.")
+    reset_parser.set_defaults(func=reset)
+
+    addsf_parser = subparsers.add_parser('add', help='Insert a SwarmFlow from file')
     addsf_parser.add_argument('-sf', '--sf_file', nargs='+',
                               help='Path to a Firework or SwarmFlow file')
+    addsf_parser.add_argument('-d', '--dir',
+                              action="store_true",
+                              help="Directory mode. Finds all files in the "
+                                   "paths given by wf_file.")
     addsf_parser.set_defaults(func=add_sf, check=False)
 
     getsf_parser = subparsers.add_parser('get_sf', help='Get SwarmFlow from SwarmPad')
-    getsf_parser.add_argument('-id', '--sf-id', help='SwarmFlow id')
-    getsf_parser.add_argument('-n', '--name', help='SwarmFlow name')
+    getsf_parser.add_argument('-id', '--sf-id', type=int, help='SwarmFlow id')
+    getsf_parser.add_argument('-n', '--name', type=str, help='SwarmFlow name')
     getsf_parser.set_defaults(func=get_sf)
+
+    args = parser.parse_args()
+
+    args.output = get_output_func(args.output)
+
+    if args.command is None:
+        # if no command supplied, print help
+        parser.print_help()
+    else:
+        if hasattr(args, "fw_id") and args.fw_id is not None and \
+                isinstance(args.fw_id, six.string_types):
+            if "," in args.fw_id:
+                args.fw_id = [int(x) for x in args.fw_id.split(",")]
+            else:
+                args.fw_id = [int(args.fw_id)]
+
+        args.func(args)
 
 
 if __name__ == '__main__':
