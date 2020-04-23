@@ -15,7 +15,7 @@ if __name__ == "__main__":
         author='Kalana Wijethunga, Randika Jayasekara, Ayesh Weerasinghe',
         author_email='kalana.16@cse.mrt.ac.lk, rpjayaseka.16@cse.mrt.ac.lk, ayeshw.16@cse.mrt.ac.lk',
         packages=find_packages(),
-        install_requires=['FireWorks=1.9.5'],
+        install_requires=['FireWorks=1.9.5', 'PyYAML >=5.3.1'],
         entry_points={
             'console_scripts': [
                 'sform = swarmform.scripts.sform_run:sform'
