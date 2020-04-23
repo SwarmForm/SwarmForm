@@ -1,6 +1,7 @@
 import datetime
 import os
 import sys
+import signal
 import traceback
 import json
 import yaml
@@ -13,6 +14,7 @@ from fireworks.scripts.lpad_run import init_yaml
 
 from swarmform import SwarmPad
 from swarmform.core.swarmwork import SwarmFlow
+from swarmform.core.cluster import cluster_sf
 from swarmform.sf_config import LAUNCHPAD_LOC, CONFIG_FILE_DIR
 
 DEFAULT_LPAD_YAML = "my_swarmpad.yaml"
@@ -95,7 +97,6 @@ def get_sf_by_id(args):
     if isinstance(args.sf_id, int):
         swarmflow = sp.get_sf_by_id(args.sf_id)
         args.outupt(swarmflow)
-        #print(swarmflow)
     else:
         raise ValueError('Incorrect id type {}.'.format(type(args.sf_id)))
 
@@ -104,7 +105,17 @@ def get_sf_by_name(args):
     sp = get_sp(args)
     swarmflow = sp.get_sf_by_name(args.sf_name)
     args.outupt(swarmflow)
-    #print (swarmflow)
+
+
+# Cluster the jobs in a workflow
+def cluster_workflow(args):
+    sp = get_sp(args)
+    unclustered_sf = sp.get_sf_by_id(args.sf_id)
+    unclustered_sf_fw_id = unclustered_sf.fws[0].fw_id
+    clustered_workflow= cluster_sf(sp, args.sf_id)
+    sp.add_sf(clustered_workflow)
+    sp.archive_wf(unclustered_sf_fw_id)
+    sp.m_logger.info('Workflow with id {} clustered succesfully'.format(args.sf_id))
 
 
 def sform():
@@ -160,6 +171,12 @@ def sform():
     getsf_parser.add_argument('-n', '--name', type=str, help='SwarmFlow name')
     getsf_parser.set_defaults(func=get_sf)
 
+    cluster_wf_parser = subparsers.add_parser('cluster',
+                                              help='Cluster the fireworks in the SwarmFlow and save the new '
+                                                   'SwarmFlow to the database')
+    cluster_wf_parser.add_argument('-sf', '--sf_id', help='Id of the SwarmFlow to cluster', default=None, type=int)
+    cluster_wf_parser.set_defaults(func=cluster_workflow)
+
     args = parser.parse_args()
 
     args.output = get_output_func(args.output)
@@ -177,6 +194,7 @@ def sform():
 
         args.func(args)
 
+    signal.signal(signal.SIGINT, handle_interrupt)  # graceful exit on ^C
 
 if __name__ == '__main__':
     sform()
