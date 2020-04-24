@@ -24,3 +24,4 @@ if __name__ == "__main__":
 
 	swarmpad.archive_wf(unclustered_sf_fw_id)
 
+	swarmpad.add_sf(clustered_sf)

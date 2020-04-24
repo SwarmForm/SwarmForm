@@ -3,14 +3,10 @@ import os
 import sys
 import signal
 import traceback
-import json
-import yaml
 import six
 from argparse import ArgumentParser
 
-from fireworks.utilities.fw_serializers import recursive_dict, DATETIME_HANDLER
-from fireworks.scripts.lpad_run import init_yaml
-
+from fireworks.scripts.lpad_run import init_yaml, get_output_func
 
 from swarmform import SwarmPad
 from swarmform.core.swarmwork import SwarmFlow
@@ -23,14 +19,6 @@ DEFAULT_LPAD_YAML = "my_swarmpad.yaml"
 def handle_interrupt(signum):
     sys.stderr.write("Interrupted by signal {:d}\n".format(signum))
     sys.exit(1)
-
-
-def get_output_func(format):
-    if format == "json":
-        return lambda x: json.dumps(x, default=DATETIME_HANDLER, indent=4)
-    else:
-        return lambda x: yaml.safe_dump(recursive_dict(x, preserve_unicode=False),
-                                        default_flow_style=False)
 
 
 def get_sp(args):
@@ -51,7 +39,7 @@ def get_sp(args):
         err_message = 'SwarmForm was not able to connect to MongoDB. Is the server running? ' \
                       'The database file specified was {}.'.format(args.launchpad_file)
         if not args.launchpad_file:
-            err_message += ' Type "lpad init" if you would like to set up a file that specifies ' \
+            err_message += ' Type "sform init" if you would like to set up a file that specifies ' \
                            'location and credentials of your Mongo database (otherwise use default ' \
                            'localhost configuration).'
         raise ValueError(err_message)
@@ -85,10 +73,12 @@ def add_sf(args):
 
 
 def get_sf(args):
-    if args.id:
-        get_sf_by_id(args)
+    if args.sf_id:
+        sf = get_sf_by_id(args)
     if args.name:
-        get_sf_by_name(args)
+        sf = get_sf_by_name(args)
+    # TODO: Use get_wf_summary_dict function and print formatted output
+    print(args.output(sf))
 
 
 def get_sf_by_id(args):
@@ -96,7 +86,7 @@ def get_sf_by_id(args):
 
     if isinstance(args.sf_id, int):
         swarmflow = sp.get_sf_by_id(args.sf_id)
-        args.outupt(swarmflow)
+        return swarmflow
     else:
         raise ValueError('Incorrect id type {}.'.format(type(args.sf_id)))
 
@@ -104,7 +94,7 @@ def get_sf_by_id(args):
 def get_sf_by_name(args):
     sp = get_sp(args)
     swarmflow = sp.get_sf_by_name(args.sf_name)
-    args.outupt(swarmflow)
+    return swarmflow
 
 
 # Cluster the jobs in a workflow
@@ -112,7 +102,7 @@ def cluster_workflow(args):
     sp = get_sp(args)
     unclustered_sf = sp.get_sf_by_id(args.sf_id)
     unclustered_sf_fw_id = unclustered_sf.fws[0].fw_id
-    clustered_workflow= cluster_sf(sp, args.sf_id)
+    clustered_workflow = cluster_sf(sp, args.sf_id)
     sp.add_sf(clustered_workflow)
     sp.archive_wf(unclustered_sf_fw_id)
     sp.m_logger.info('Workflow with id {} clustered succesfully'.format(args.sf_id))
@@ -195,6 +185,7 @@ def sform():
         args.func(args)
 
     signal.signal(signal.SIGINT, handle_interrupt)  # graceful exit on ^C
+
 
 if __name__ == '__main__':
     sform()

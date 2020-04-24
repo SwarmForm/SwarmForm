@@ -13,7 +13,7 @@ if __name__ == "__main__":
         long_description=open(os.path.join(module_dir, 'README.md')).read(),
         url='https://github.com/SwarmForm/SwarmForm',
         author='Kalana Wijethunga, Randika Jayasekara, Ayesh Weerasinghe',
-        author_email='kalana.16@cse.mrt.ac.lk, rpjayaseka.16@cse.mrt.ac.lk, ayeshw.16@cse.mrt.ac.lk',
+        author_email='kalana.16@cse.mrt.ac.lk, rpjayaseka.16@cse.mrt.ac.lk, ayeshweerasinghe.16@cse.mrt.ac.lk',
         packages=find_packages(),
         install_requires=['FireWorks=1.9.5', 'PyYAML >=5.3.1'],
         entry_points={

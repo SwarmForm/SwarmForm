@@ -1,9 +1,7 @@
 import datetime
 
 from fireworks import LaunchPad, Firework
-from fireworks.core.launchpad import LazyFirework
 from fireworks.fw_config import GRIDFS_FALLBACK_COLLECTION
-from fireworks.utilities.fw_serializers import serialize_fw
 
 from swarmform.core.swarmwork import SwarmFlow
 
@@ -144,55 +142,6 @@ class SwarmPad(LaunchPad):
 			'RESTARTED fw_id, launch_id to ({}, {}, {})'.format(next_fw_id,
 																next_launch_id, next_sf_id))
 
-	def get_sf_by_fw_id(self, fw_id):
-		"""
-		Given a Firework id, give back the SwarmFlow containing that Firework.
-
-		Args:
-			fw_id (int)
-
-		Returns:
-			A SwarmFlow object
-		"""
-		links_dict = self.workflows.find_one({'nodes': fw_id})
-		if not links_dict:
-			raise ValueError(
-				"Could not find a Workflow with fw_id: {}".format(fw_id))
-		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
-						 links_dict['metadata'], links_dict['created_on'],
-						 links_dict['updated_on'], None, links_dict['sf_id'])
-
-	def get_sf_by_fw_id_lzyfw(self, fw_id):
-		"""
-		Given a FireWork id, give back the SwarmFlow containing that FireWork.
-
-		Args:
-			fw_id (int)
-
-		Returns:
-			A SwarmFlow object
-		"""
-		links_dict = self.workflows.find_one({'nodes': fw_id})
-		if not links_dict:
-			raise ValueError(
-				"Could not find a Workflow with fw_id: {}".format(fw_id))
-
-		fws = []
-		for fw_id in links_dict['nodes']:
-			fws.append(LazyFirework(fw_id, self.fireworks, self.launches,
-									self.gridfs_fallback))
-		# Check for fw_states in links_dict to conform with pre-optimized workflows
-		if 'fw_states' in links_dict:
-			fw_states = dict(
-				[(int(k), v) for (k, v) in links_dict['fw_states'].items()])
-		else:
-			fw_states = None
-
-		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
-						 links_dict['metadata'], links_dict['created_on'],
-						 links_dict['updated_on'], fw_states, links_dict['sf_id'])
-
 	def get_sf_by_id(self, sf_id):
 		"""
 		Given a SwarmFlow id, give back the SwarmFlow.
@@ -215,6 +164,7 @@ class SwarmPad(LaunchPad):
 	def get_sf_by_name(self, sf_name):
 		"""
 		Given a SwarmFlow name, give back the SwarmFlow.
+		If multiple SwarmFlows with the same name are found, first SwarmFlow is returned
 		Args:
 			sf_name (string)
 		Returns:
