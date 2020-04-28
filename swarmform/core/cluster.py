@@ -1,7 +1,7 @@
 from fireworks import Firework, ScriptTask
 from swarmform import ParallelTask
 from swarmform.core.swarm_dag import DAG
-from swarmform.core.clustering_algo.wpa_clustering import wpa_clustering
+from swarmform.core.clustering_algo.wpa_clustering import wpa_clustering, cluster_vertically
 from swarmform.core.swarmwork import SwarmFlow
 
 
@@ -131,8 +131,9 @@ def cluster_sf(swarmpad, sf_id):
     # Retrieve the relevant swarmflow from the swarmpad
     sf = swarmpad.get_sf_by_id(sf_id)
     sf_dag = DAG(sf)
+    vertically_clustered_dag = cluster_vertically(sf_dag)
     # Cluster the swarmflow DAG
-    clustered_sf_dag = wpa_clustering(sf_dag)
+    clustered_sf_dag = wpa_clustering(vertically_clustered_dag)
     # Get parent-child relationships of the clustered dag {cluster_id : [fw_ids] }
     # eg: links {17: [18, 19, 21, 20], 18: [23], 19: [23], 21: [23], 20: [23]}
     links_dict = clustered_sf_dag.get_parent_child_relationships()
