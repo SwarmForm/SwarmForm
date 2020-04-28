@@ -34,7 +34,7 @@ class WorkflowGenerator():
                 # Set execution time as the first element of the firework
                 # Set cores to zero as it is considered only in parallel task clustering
                 # Set empty list to add children
-                firework = [float(child.attrib['runtime'])/float(10), 0]
+                firework = [round((float(child.attrib['runtime'])/float(10)), 3), 0]
                 workflow_dict.update({fw_id: firework})
 
                 # Create a mapping between dax job id and firework id
