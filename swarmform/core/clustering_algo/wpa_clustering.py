@@ -426,4 +426,50 @@ def wpa_clustering(workflow):
     return workflow
 
 
+def cluster_vertically(workflow):
+    for level in range(1,workflow.get_height()):
+        tsk_at_level = get_tasks_at_level(workflow, level)
+        for task in tsk_at_level:
+            m_task = task
+            cluster_c = []
+            cluster_c.append(task)
+            cls_info = {}
+            cls_info[task.get_fw_id()] = {'exec_time': task.get_exec_time(), 'cores': task.get_num_cores()}
+            while(True):
+                if(task.get_children() is None):
+                    break
+                if(len(task.get_children())==1):
+                    child = task.get_children()[0]
+                    if(len(child.get_parents())==1):
+                        cls_info[child.get_fw_id()] = {'exec_time': child.get_exec_time(), 'cores': child.get_num_cores()}
+                        cluster_c.append(child)
+                        task = child
+                    else:
+                        break
+                else:
+                    break
+            if(len(cls_info)>1):
+                # print(cls_info)
+                sequential_id = []
+                cluster = Node(fw_id=m_task.get_fw_id(), level=level,
+                               fw_info={'exec_time': get_sum_0f_exec_time(cluster_c),
+                                        'cores': cls_info[task.get_fw_id()]['cores']},
+                               parents=[], children=[], assigned=False)
+                cluster.set_cluster_info(cls_info)
+                for cls in cluster_c:
+                    sequential_id.append(cls.get_fw_id())
+                cluster.set_sequential_ids(sequential_id)
+                if not m_task.get_parents() is None:
+                    for parent in m_task.get_parents():
+                        cluster.add_parent(parent)
+                if not cluster_c[-1].get_children() is None:
+                    for child in cluster_c[-1].get_children():
+                        child.remove_parent(cluster_c[-1].get_fw_id())
+                        child.add_parent(cluster)
+                        cluster.add_child(child)
+                for tsk in cluster_c:
+                    workflow.delete_node(tsk.get_fw_id())
+                workflow.add_node(m_task.get_fw_id(), cluster)
+                workflow.update_links()
+    return workflow
 
