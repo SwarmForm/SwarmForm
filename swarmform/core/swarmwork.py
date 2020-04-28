@@ -1,4 +1,4 @@
-from fireworks import Workflow
+from fireworks import Workflow, Firework
 
 
 class SwarmFlow(Workflow):
@@ -24,7 +24,6 @@ class SwarmFlow(Workflow):
 
         self.fw_costs = self.metadata['costs'] if 'costs' in self.metadata else {}
 
-
     def _reassign_ids(self, old_new):
         """
         Internal method to reassign Firework ids, e.g. due to database insertion.
@@ -46,6 +45,27 @@ class SwarmFlow(Workflow):
         m_dict = super().to_db_dict()
         m_dict['sf_id'] = self.sf_id
         return m_dict
+
+    @classmethod
+    def from_dict(cls, m_dict):
+        """
+        Return Workflow from its dict representation.
+
+        Args:
+            m_dict (dict): either a Workflow dict or a Firework dict
+
+        Returns:
+            SwarmFlow
+        """
+
+        if 'fws' in m_dict:
+            created_on = m_dict.get('created_on')
+            updated_on = m_dict.get('updated_on')
+            return SwarmFlow([Firework.from_dict(f) for f in m_dict['fws']],
+                            Workflow.Links.from_dict(m_dict['links']), m_dict.get('name'),
+                            m_dict['metadata'], created_on, updated_on)
+        else:
+            return SwarmFlow.from_Firework(Firework.from_dict(m_dict))
 
     @classmethod
     def from_Firework(cls, fw, name=None, metadata=None, sf_id=None):

@@ -13,12 +13,10 @@ if __name__ == "__main__":
 	# store workflow
 	swarmpad.add_sf(firework)
 
-	# Retrieve SwarmFlow from the SwarmPad and print
+	# Retrieve SwarmFlow from the SwarmPad
 	sf = swarmpad.get_sf_by_id(1)
-	print(sf.to_db_dict())
 
 	sf = swarmpad.get_sf_by_name('Unnamed FW')
-	print(sf.to_db_dict())
 
 	# Run the swarmFlow
 	launch_rocket(swarmpad, FWorker())

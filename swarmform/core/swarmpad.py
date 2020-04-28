@@ -1,12 +1,38 @@
 import datetime
 
 from fireworks import LaunchPad, Firework
-from fireworks.core.launchpad import LazyFirework
 from fireworks.fw_config import GRIDFS_FALLBACK_COLLECTION
+
 from swarmform.core.swarmwork import SwarmFlow
 
 
 class SwarmPad(LaunchPad):
+
+	@classmethod
+	def from_dict(cls, d):
+		port = d.get('port', None)
+		name = d.get('name', None)
+		username = d.get('username', None)
+		password = d.get('password', None)
+		logdir = d.get('logdir', None)
+		strm_lvl = d.get('strm_lvl', None)
+		user_indices = d.get('user_indices', [])
+		wf_user_indices = d.get('wf_user_indices', [])
+		ssl = d.get('ssl', False)
+		ssl_ca_certs = d.get('ssl_ca_certs',
+							 d.get('ssl_ca_file',
+								   None))  # ssl_ca_file was the old notation for FWS < 1.5.5
+		ssl_certfile = d.get('ssl_certfile', None)
+		ssl_keyfile = d.get('ssl_keyfile', None)
+		ssl_pem_passphrase = d.get('ssl_pem_passphrase', None)
+		authsource = d.get('authsource', None)
+		uri_mode = d.get('uri_mode', False)
+		mongoclient_kwargs = d.get('mongoclient_kwargs', None)
+		return SwarmPad(d['host'], port, name, username, password,
+						logdir, strm_lvl, user_indices, wf_user_indices, ssl,
+						ssl_ca_certs, ssl_certfile, ssl_keyfile,
+						ssl_pem_passphrase,
+						authsource, uri_mode, mongoclient_kwargs)
 
 	def reset(self, password, require_password=True, max_reset_wo_password=25):
 		"""
@@ -116,55 +142,6 @@ class SwarmPad(LaunchPad):
 			'RESTARTED fw_id, launch_id to ({}, {}, {})'.format(next_fw_id,
 																next_launch_id, next_sf_id))
 
-	def get_sf_by_fw_id(self, fw_id):
-		"""
-		Given a Firework id, give back the SwarmFlow containing that Firework.
-
-		Args:
-			fw_id (int)
-
-		Returns:
-			A SwarmFlow object
-		"""
-		links_dict = self.workflows.find_one({'nodes': fw_id})
-		if not links_dict:
-			raise ValueError(
-				"Could not find a Workflow with fw_id: {}".format(fw_id))
-		fws = map(self.get_fw_by_id, links_dict["nodes"])
-		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
-						 links_dict['metadata'], links_dict['created_on'],
-						 links_dict['updated_on'], None, links_dict['sf_id'])
-
-	def get_sf_by_fw_id_lzyfw(self, fw_id):
-		"""
-		Given a FireWork id, give back the SwarmFlow containing that FireWork.
-
-		Args:
-			fw_id (int)
-
-		Returns:
-			A SwarmFlow object
-		"""
-		links_dict = self.workflows.find_one({'nodes': fw_id})
-		if not links_dict:
-			raise ValueError(
-				"Could not find a Workflow with fw_id: {}".format(fw_id))
-
-		fws = []
-		for fw_id in links_dict['nodes']:
-			fws.append(LazyFirework(fw_id, self.fireworks, self.launches,
-									self.gridfs_fallback))
-		# Check for fw_states in links_dict to conform with pre-optimized workflows
-		if 'fw_states' in links_dict:
-			fw_states = dict(
-				[(int(k), v) for (k, v) in links_dict['fw_states'].items()])
-		else:
-			fw_states = None
-
-		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
-						 links_dict['metadata'], links_dict['created_on'],
-						 links_dict['updated_on'], fw_states, links_dict['sf_id'])
-
 	def get_sf_by_id(self, sf_id):
 		"""
 		Given a SwarmFlow id, give back the SwarmFlow.
@@ -184,20 +161,21 @@ class SwarmPad(LaunchPad):
 						 links_dict['metadata'], links_dict['created_on'],
 						 links_dict['updated_on'], None, links_dict['sf_id'])
 
-	def get_sf_by_name(self, wf_name):
+	def get_sf_by_name(self, sf_name):
 		"""
 		Given a SwarmFlow name, give back the SwarmFlow.
+		If multiple SwarmFlows with the same name are found, first SwarmFlow is returned
 		Args:
-			wf_name (string)
+			sf_name (string)
 		Returns:
 			A SwarmFlow Object
 		"""
 
-		links_dict = self.workflows.find_one({'name': wf_name})
+		links_dict = self.workflows.find_one({'name': sf_name})
 
 		if not links_dict:
 			raise ValueError(
-				"Could not find a SwarmFlow with wf_name: {}".format(wf_name))
+				"Could not find a SwarmFlow with sf_name: {}".format(sf_name))
 
 		fws = map(self.get_fw_by_id, links_dict["nodes"])
 		return SwarmFlow(fws, links_dict['links'], links_dict['name'],
