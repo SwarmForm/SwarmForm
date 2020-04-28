@@ -169,7 +169,7 @@ def cluster_sf(swarmpad, sf_id):
                 links_dict = update_parent_child_relationships(links_dict, fw_id, combined_fw.fw_id)
 
         # If only a single firework is available, add it directly to clustered_fws
-        elif len(fw_ids_to_cluster_sequentially) == 0:
+        elif len(fw_ids_to_cluster_sequentially) == 0 or len(fw_ids_to_cluster_sequentially) == 1:
             combined_fw = swarmpad.get_fw_by_id(nodes[key].get_fw_id())
         else:
             raise ValueError(
