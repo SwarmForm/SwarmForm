@@ -1,78 +1,13 @@
-# SwarmFlow
-
-A distributed workflow management system for High Performance Computing environments with task clustering
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Setting up the project
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-### Basic usage
-
-A step by step series of examples that tell you how to use the basic system functions.
-
-```
-Give the example
-```
-
-## Built With
-
-* [Python](http://www.dropwizard.io/1.0.2/docs/) 
-* [FireWorks](https://github.com/materialsproject/fireworks)
-
-
-## Contributing
-
-How to contribute guide
-
-## Versioning
-
-about Versioning
-
-
-## Authors
-
-* **Kalana Dananjaya** - https://github.com/KalanaDananjaya
-* **Ayesh Malindun** - https://github.com/AyeshW
-* **Randika Jayasekara** - https://github.com/rpjayasekara
-
-
-## License
-
-This project is licensed under the <liscene name> License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* 
-
 # SwarmForm
 
 SwarmForm is a distributed workflow management system for High Performance Computing environments. SwarmForm introduces task clustering to reduce the makespan of workflows executed using it by minimizing the overheads. SwarmForm follows a distributed architecture with independent programs controlling different functional layers in workflow management.
-
 ## Getting Started
 
 These instructions will get you familiar with the installation and basic functions of the SwarmForm.
 
 ### Prerequisites
 
-Following prerequisites should be installed to run SwarmForm.
+What things you need to install to run the SwarmForm.
 
 * MongoDB
 * Python 3.3+
@@ -88,7 +23,7 @@ pip install swarmflow
 
 ### Basic usage
 
-Following is a step by step series of examples that tell you how to use the basic system functions.
+A step by step series of examples that tell you how to use the basic system functions.
 
 Initialize a SwarmForm launchpad YAML file
 ```
@@ -130,7 +65,24 @@ sform reset
 
 ## License
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+MIT License
 
-- **[MIT license](https://github.com/SwarmForm/SwarmForm/blob/master/LICENSE)**
-- Copyright 2015 © SwarmForm.
+Copyright (c) 2020 SwarmForm
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
