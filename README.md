@@ -69,4 +69,4 @@ sform reset
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](https://github.com/SwarmForm/SwarmForm/blob/master/LICENSE)**
-- Copyright 2015 © SwarmForm.
+- Copyright 2020 © SwarmForm.
