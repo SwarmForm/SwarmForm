@@ -19,7 +19,7 @@ Following prerequisites should be installed to run SwarmForm.
 To install SwarmForm, simply type
 
 ```
-pip install swarmflow
+pip install swarmform
 ```
 
 ### Basic usage
@@ -60,7 +60,7 @@ sform reset
 ## Authors
 
 * **Kalana Dananjaya** - https://github.com/KalanaDananjaya
-* **Ayesh Malindun** - https://github.com/AyeshW
+* **Ayesh Weerasinghe** - https://github.com/AyeshW
 * **Randika Jayasekara** - https://github.com/rpjayasekara
 
 
