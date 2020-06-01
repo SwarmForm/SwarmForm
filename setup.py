@@ -7,7 +7,7 @@ module_dir = os.path.dirname(os.path.abspath(__file__))
 
 if __name__ == "__main__":
     setup(
-        name='SwarmForm',
+        name='swarmform',
         version="0.0.1",
         description='SwarmForm Workflow Management Software',
         long_description=open(os.path.join(module_dir, 'README.md')).read(),
