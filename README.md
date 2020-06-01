@@ -31,7 +31,6 @@ Initialize a SwarmForm launchpad YAML file
 sform init
 ```
 
-
 Insert a SwarmFlow from file
 ```
 sform add -sf <file path>
@@ -50,6 +49,21 @@ sform cluster -sf <SwarmFlow ID>
 Reset and re-initialize the SwarmForm database
 ```
 sform reset
+```
+
+Launch a single rocket to execute a firework
+```
+rlaunch singleshot
+```
+
+Launch a multiple rockets sequentially to execute all the fireworks
+```
+rlaunch rapidfire
+```
+
+Launch parallel m nummber of rockets to execute all the fireworks parallely.(Usually m equals to number of available resources) 
+```
+mlaunch <m>
 ```
 
 ## Built With
