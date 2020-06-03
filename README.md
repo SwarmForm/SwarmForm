@@ -31,7 +31,7 @@ Initialize a SwarmForm launchpad YAML file
 sform init
 ```
 
-Insert a SwarmFlow from file
+Insert a SwarmFlow from file. (For demonstration purpose we have included a workflow .yml file. Can find in /swarmform/examples/swarmpad_examples/custom-25-jobs.yml)
 ```
 sform add -sf <file path>
 ```
@@ -61,7 +61,7 @@ Launch a multiple rockets sequentially to execute all the fireworks
 rlaunch rapidfire
 ```
 
-Launch parallel m nummber of rockets to execute all the fireworks parallely.(Usually m equals to number of available resources) 
+Launch parallel m number of rockets to execute all the fireworks parallely.(Usually m equals to number of available resources) 
 ```
 mlaunch <m>
 ```
