@@ -31,7 +31,7 @@ Initialize a SwarmForm launchpad YAML file
 sform init
 ```
 
-Insert a SwarmFlow from file. (For demonstration purpose we have included a workflow .yml file. Can find in /swarmform/examples/swarmpad_examples/custom-25-jobs.yml)
+Insert a SwarmFlow from file. (For demonstration purpose we have included a workflow .yaml file. Can find in /swarmform/examples/swarmpad_examples/custom-25-jobs.yaml)
 ```
 sform add -sf <file path>
 ```
