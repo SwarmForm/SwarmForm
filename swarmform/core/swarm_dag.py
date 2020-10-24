@@ -57,7 +57,7 @@ class Node:
 
     def get_num_cores(self):
         if self._fw_info:
-            return self._fw_info['cores']
+            return self._fw_info['nnodes']
         else:
             return None
 
@@ -112,10 +112,6 @@ class Node:
                 self._children.remove(child)
                 break
 
-    def set_fw_info(self, exec_time, cores):
-        self._fw_info = {'exec_time': exec_time, 'cores': cores}
-
-
 class DAG:
 
     def __init__(self, sf):
@@ -132,8 +128,13 @@ class DAG:
 
         fireworks = sf.fws
         self._links = sf.links  # dictionary in the format of {parent_id:[child_ids]}
-        metadata = sf.metadata  # dictionary in the format of {fw_id: [exec_time, cores]}
-        self._costs = metadata['costs'] if 'costs' in metadata else {}
+        metadata = sf.metadata
+        self._costs = {} # dictionary in the format of {fw_id: [param1, param2]}
+        # Set parameters in _queueadapter as cost parameters
+        for fw in fireworks:
+            if fw.spec.get('_queueadapter',None):
+                params = fw.spec['_queueadapter']
+                self._costs.update({str(fw.fw_id):params})
 
         # creating Nodes and adding to the _nodes dictionary
         self._height = 0
