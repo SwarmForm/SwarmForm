@@ -39,7 +39,7 @@ def sort_tasks_by_exec_time_in_decreasing(tasks):
     return tasks
 
 
-def get_sum_0f_exec_time(cluster):
+def get_sum_of_exec_time(cluster):
     """
     Returns the sum of execution time from a given list of tasks
 
@@ -55,7 +55,17 @@ def get_sum_0f_exec_time(cluster):
     return exec_sum
 
 
-def cluster_wf(workflow, cluster_num):
+def cluster_wf_in_hrab(workflow, cluster_num):
+    """
+        Returns the clustered workflow using HRAB algorithm
+
+        Args:
+            cluster_num: number of cluster in a level
+            workflow (DAG)
+
+        Returns:
+            workflow (DAG)
+    """
     for level in range(1, workflow.get_height() + 1):
         tasks = get_tasks_at_level(workflow, level)
         if len(tasks) > cluster_num:
@@ -75,8 +85,10 @@ def cluster_wf(workflow, cluster_num):
                 candidate_task.set_cluster_node(task)
             for cluster in clusters:
                 update_cluster_info(cluster)
+                update_fw_info(cluster)
             update_parent_child_relationships(clusters)
     workflow.update_links()
+    return workflow
 
 
 def get_max_cores(tasks):
@@ -115,7 +127,7 @@ def normalize_cores(tasks):
     max_cores = get_max_cores(tasks)
     min_cores = get_min_cores(tasks)
     for task in tasks:
-        normalized_cores = (task.get_num_cores() - min_cores) / (max_cores - min_cores)
+        normalized_cores = (task.get_num_cores() - min_cores) / ((max_cores - min_cores)+0.0001)
         task.set_normalized_cores(normalized_cores)
 
 
@@ -123,7 +135,7 @@ def normalize_runtime(tasks):
     max_runtime = get_max_runtime(tasks)
     min_runtime = get_min_runtime(tasks)
     for task in tasks:
-        normalized_runtime = (task.get_exec_time() - min_runtime) / (max_runtime - min_runtime)
+        normalized_runtime = (task.get_exec_time() - min_runtime) / ((max_runtime - min_runtime)+0.0001)
         task.set_normalized_runtime(normalized_runtime)
 
 
@@ -212,16 +224,26 @@ def update_cluster_info(cluster):
     for task in cluster.get_cluster_tasks():
         cores = task.get_num_cores()
         runtime = task.get_exec_time()
-        fw_info = {'exec_time': runtime, 'cores': 5}
+        fw_info = {'exec_time': runtime, 'cores': cores}
         cluster_info[task.get_fw_id()] = fw_info
     cluster.set_cluster_info(cluster_info)
+
+
+def update_fw_info(cluster):
+    cores = 0
+    runtime = 0
+    for task in cluster.get_cluster_tasks():
+        runtime += task.get_exec_time()
+        if cores < task.get_num_cores():
+            cores = task.get_num_cores()
+    cluster.set_fw_info(runtime, cores)
 
 
 # For testing the clustering
 swarmpad = SwarmPad()
 swarmpad.reset('', require_password=False)
 
-filename = '/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/swarmpad_examples/Montage_25-1588016685/Montage_25.yaml'
+filename = '/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml'
 # create the Firework consisting of a custom "Addition" task
 unclustered_sf = SwarmFlow.from_file(filename)
 
@@ -230,4 +252,4 @@ swarmpad.add_sf(unclustered_sf)
 sf = swarmpad.get_sf_by_id(unclustered_sf.sf_id)
 sf_dag = DAG(sf)
 
-cluster_wf(sf_dag, 3)
+cluster_wf_in_hrab(sf_dag, 3)
