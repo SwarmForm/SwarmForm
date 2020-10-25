@@ -70,8 +70,8 @@ def cluster_wf_in_hrab(workflow, cluster_num):
         tasks = get_tasks_at_level(workflow, level)
         if len(tasks) > cluster_num:
             clusters = []
-            for i in range(cluster_num):
-                clusters.append(Node(-i * level, level, {}))
+            for i in range(1, cluster_num + 1):
+                clusters.append(Node(-i * level, level, {}, parents=[], children=[]))
             cluster_size = int(len(tasks) / cluster_num)
             if (cluster_size * cluster_num) < len(tasks):
                 cluster_size += 1
@@ -87,6 +87,10 @@ def cluster_wf_in_hrab(workflow, cluster_num):
                 update_cluster_info(cluster)
                 update_fw_info(cluster)
             update_parent_child_relationships(clusters)
+            for cluster in clusters:
+                for task in cluster.get_cluster_tasks():
+                    workflow.delete_node(task.get_fw_id())
+                workflow.add_node(-1 * task.get_fw_id(), cluster)
     workflow.update_links()
     return workflow
 
@@ -127,7 +131,7 @@ def normalize_cores(tasks):
     max_cores = get_max_cores(tasks)
     min_cores = get_min_cores(tasks)
     for task in tasks:
-        normalized_cores = (task.get_num_cores() - min_cores) / ((max_cores - min_cores)+0.0001)
+        normalized_cores = (task.get_num_cores() - min_cores) / ((max_cores - min_cores) + 0.0001)
         task.set_normalized_cores(normalized_cores)
 
 
@@ -135,7 +139,7 @@ def normalize_runtime(tasks):
     max_runtime = get_max_runtime(tasks)
     min_runtime = get_min_runtime(tasks)
     for task in tasks:
-        normalized_runtime = (task.get_exec_time() - min_runtime) / ((max_runtime - min_runtime)+0.0001)
+        normalized_runtime = (task.get_exec_time() - min_runtime) / ((max_runtime - min_runtime) + 0.0001)
         task.set_normalized_runtime(normalized_runtime)
 
 
@@ -200,16 +204,20 @@ def update_parent_child_of_a_task(cluster, task):
     # update parents of task
     if bool(task.get_parents()):
         for parent in task.get_parents():
-            cluster.add_parent(parent)
+            if not is_parent_already_assigned(cluster, parent.get_fw_id()):
+                cluster.add_parent(parent)
             parent.remove_child(task.get_fw_id())
-            parent.add_child(cluster)
+            if not is_child_already_assigned(parent, cluster.get_fw_id()):
+                parent.add_child(cluster)
 
     # update children of task
     if bool(task.get_children()):
         for child in task.get_children():
-            cluster.add_child(child)
+            if not is_child_already_assigned(cluster, child.get_fw_id()):
+                cluster.add_child(child)
             child.remove_parent(task.get_fw_id())
-            child.add_parent(cluster)
+            if not is_parent_already_assigned(child, cluster.get_fw_id()):
+                child.add_parent(cluster)
 
 
 def update_parent_child_relationships(clusters):
@@ -237,3 +245,56 @@ def update_fw_info(cluster):
         if cores < task.get_num_cores():
             cores = task.get_num_cores()
     cluster.set_fw_info(runtime, cores)
+
+
+def is_parent_already_assigned(task, parent_id):
+    """
+    Checks whether the given node is already assigned as parent or not
+
+    Args:
+        task (Node)
+        parent_id (fw_id)
+
+    Returns:
+        int
+    """
+    parents = task.get_parents()
+    for parent in parents:
+        if parent.get_fw_id() == parent_id:
+            return True
+    return False
+
+
+def is_child_already_assigned(task, child_id):
+    """
+    Checks whether the given node is already assigned as child or not
+
+    Args:
+        task (Node)
+        child_id (fw_id)
+
+    Returns:
+        int
+    """
+    children = task.get_children()
+    for child in children:
+        if child.get_fw_id() == child_id:
+            return True
+    return False
+
+
+# For testing the clustering
+swarmpad = SwarmPad()
+swarmpad.reset('', require_password=False)
+
+filename = '/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml'
+# create the Firework consisting of a custom "Addition" task
+unclustered_sf = SwarmFlow.from_file(filename)
+
+# store workflow
+swarmpad.add_sf(unclustered_sf)
+sf = swarmpad.get_sf_by_id(unclustered_sf.sf_id)
+sf_dag = DAG(sf)
+
+clusterd_wf = cluster_wf_in_hrab(sf_dag, 3)
+print(clusterd_wf)
