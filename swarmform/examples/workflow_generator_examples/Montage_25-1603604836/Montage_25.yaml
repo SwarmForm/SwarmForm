@@ -6,7 +6,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.339
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -19,7 +19,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.383
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -32,7 +32,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.336
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -45,7 +45,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.36
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -58,7 +58,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.378
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -71,7 +71,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.059
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -84,7 +84,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.059
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -97,7 +97,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.088
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -110,7 +110,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.081
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -123,7 +123,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.049
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -136,7 +136,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.051
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -149,7 +149,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.051
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -162,7 +162,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.062
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -175,7 +175,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.037
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -188,7 +188,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.072
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -201,7 +201,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.142
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -214,7 +214,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.039
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -227,7 +227,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.064
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -240,7 +240,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.083
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -253,7 +253,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.093
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -266,7 +266,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 1.076
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -279,7 +279,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.139
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -292,7 +292,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.303
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -305,7 +305,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.386
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:
@@ -318,7 +318,7 @@ fws:
   spec:
     _queueadapter:
       exec_time: 0.045
-      nnodes: 6
+      cores: 6
     _tasks:
     - _fw_name: ScriptTask
       script:

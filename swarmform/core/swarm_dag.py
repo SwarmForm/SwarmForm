@@ -134,7 +134,7 @@ class Node:
                 break
 
     def set_fw_info(self, exec_time, cores):
-        self._fw_info = {'exec_time': exec_time, 'nnodes': cores}
+        self._fw_info = {'exec_time': exec_time, 'cores': cores}
 
 
 class DAG:

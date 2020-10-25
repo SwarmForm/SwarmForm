@@ -154,7 +154,7 @@ class WorkflowGenerator():
             spec = {
                 "_queueadapter": {
                     "exec_time":job_exec_time,
-                    "nnodes":cores
+                    "cores":cores
                 }
             }
         # Create firework for each job given
