@@ -75,7 +75,7 @@ class Node:
 
     def get_num_cores(self):
         if self._fw_info:
-            return self._fw_info['nnodes']
+            return self._fw_info['cores']
         else:
             return None
 
@@ -134,7 +134,7 @@ class Node:
                 break
 
     def set_fw_info(self, exec_time, cores):
-        self._fw_info = {'exec_time': exec_time, 'nnodes': cores}
+        self._fw_info = {'exec_time': exec_time, 'cores': cores}
 
 
 class DAG:
