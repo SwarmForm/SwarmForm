@@ -19,7 +19,7 @@ Following prerequisites should be installed to run SwarmForm.
 To install SwarmForm, simply type
 
 ```
-pip install swarmflow
+pip install swarmform
 ```
 
 ### Basic usage
@@ -60,13 +60,13 @@ sform reset
 ## Authors
 
 * **Kalana Dananjaya** - https://github.com/KalanaDananjaya
-* **Ayesh Malindun** - https://github.com/AyeshW
+* **Ayesh Weerasinghe** - https://github.com/AyeshW
 * **Randika Jayasekara** - https://github.com/rpjayasekara
 
 
 ## License
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](http://badges.mit-license.org)
 
 - **[MIT license](https://github.com/SwarmForm/SwarmForm/blob/master/LICENSE)**
 - Copyright 2020 © SwarmForm.
