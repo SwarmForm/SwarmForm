@@ -237,19 +237,3 @@ def update_fw_info(cluster):
         if cores < task.get_num_cores():
             cores = task.get_num_cores()
     cluster.set_fw_info(runtime, cores)
-
-
-# For testing the clustering
-swarmpad = SwarmPad()
-swarmpad.reset('', require_password=False)
-
-filename = '/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml'
-# create the Firework consisting of a custom "Addition" task
-unclustered_sf = SwarmFlow.from_file(filename)
-
-# store workflow
-swarmpad.add_sf(unclustered_sf)
-sf = swarmpad.get_sf_by_id(unclustered_sf.sf_id)
-sf_dag = DAG(sf)
-
-cluster_wf_in_hrab(sf_dag, 3)
