@@ -7,7 +7,7 @@ if __name__ == "__main__":
 	swarmpad = SwarmPad()
 	swarmpad.reset('', require_password=False)
 
-	filename = '/swarmform/custom-25-jobs-correct-1587484561/custom-25-jobs-correct.yaml'
+	filename = "/home/kalana/fyp/fyp-new/SwarmForm/swarmform/examples/workflow_generator_examples/Montage_25-1603604836/Montage_25.yaml"
 	# create the Firework consisting of a custom "Addition" task
 	unclustered_sf = SwarmFlow.from_file(filename)
 
@@ -17,7 +17,7 @@ if __name__ == "__main__":
 	sf = swarmpad.get_sf_by_id(unclustered_sf.sf_id)
 
 	# Cluster the SwarmFlow
-	clustered_sf = cluster_sf(swarmpad, unclustered_sf.sf_id)
+	clustered_sf = cluster_sf(swarmpad, unclustered_sf.sf_id, "rac", 5)
 
 	# Archive unclustered SwarmFlow
 	unclustered_sf_fw_id = unclustered_sf.fws[0].fw_id
