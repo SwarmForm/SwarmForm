@@ -7,7 +7,7 @@ if __name__ == "__main__":
 	swarmpad = SwarmPad()
 	swarmpad.reset('', require_password=False)
 
-	filename = "/home/kalana/fyp/fyp-new/SwarmForm/swarmform/examples/workflow_generator_examples/Montage_25-1603604836/Montage_25.yaml"
+	filename = "/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml"
 	# create the Firework consisting of a custom "Addition" task
 	unclustered_sf = SwarmFlow.from_file(filename)
 
