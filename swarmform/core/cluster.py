@@ -6,7 +6,7 @@ from swarmform.core.clustering_algo.wpa_clustering import wpa_clustering, cluste
 from swarmform.core.swarmwork import SwarmFlow
 
 
-def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallely_clustered_fw_ids):
+def combine_fws_sequentially(swarmpad, fw_ids):
     """
     Combine a set of fireworks into a single firework
 
@@ -20,33 +20,23 @@ def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallel
         combinedFW (Firework)
     """
 
-    fws = parallely_clustered_fws
-
-    parallel_fw_ids = parallely_clustered_fw_ids.values()
-
     firetask = []
-
-    # Get the firetasks of parallel fireworks and add to firetask list
-    for parallel_fw in fws:
-        for task in parallel_fw.tasks:
-            firetask.append(task)
 
     # Get firework from swarmpad if it is not available in parallely_clustered_fws list
     for fw_id in fw_ids:
-        if fw_id not in parallel_fw_ids:
-            firetask_list = swarmpad.get_fw_by_id(fw_id).spec['_tasks']
-            num_firetasks = len(firetask_list)
-            # Check whether a firework has no firetasks
-            if num_firetasks == 0:
-                raise ValueError('No Firetasks available in the Firework')
-            # Check whether the firework has multiple firetasks - Not checking firetasks recursively at the moment
-            if num_firetasks > 1:
-                # If multiple firetasks are available, add each task to firetask list
-                for firetask_index in range(0, num_firetasks):
-                    firetask.append(firetask_list[firetask_index])
-            # If only a single firetask is there, get the first firetask and add it to the combined firetask
-            else:
-                firetask.append(firetask_list[0])
+        firetask_list = swarmpad.get_fw_by_id(fw_id).spec['_tasks']
+        num_firetasks = len(firetask_list)
+        # Check whether a firework has no firetasks
+        if num_firetasks == 0:
+            raise ValueError('No Firetasks available in the Firework')
+        # Check whether the firework has multiple firetasks - Not checking firetasks recursively at the moment
+        if num_firetasks > 1:
+            # If multiple firetasks are available, add each task to firetask list
+            for firetask_index in range(0, num_firetasks):
+                firetask.append(firetask_list[firetask_index])
+        # If only a single firetask is there, get the first firetask and add it to the combined firetask
+        else:
+            firetask.append(firetask_list[0])
 
     # Create a firework from the combined firetasks
     combined_fw = Firework(firetask)
@@ -58,7 +48,6 @@ def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallel
 '''
 * Only scriptTasks are given
 * Command in scriptTasks are static
-* fws to combine parallely have only a single firetask
 '''
 
 
@@ -157,7 +146,7 @@ def cluster_sf(swarmpad, sf_id, algo="rac", clusters=5):
 
         # If multiple fireworks are available, cluster them and to clustered_fws
         if len(fw_ids_to_cluster_sequentially) > 1:
-            combined_fw = combine_fws_sequentially(swarmpad, fw_ids_to_cluster_sequentially, None, None)
+            combined_fw = combine_fws_sequentially(swarmpad, fw_ids_to_cluster_sequentially)
             for fw_id in fw_ids_to_cluster_sequentially:
                 links_dict = update_parent_child_relationships(links_dict, fw_id, combined_fw.fw_id)
 
