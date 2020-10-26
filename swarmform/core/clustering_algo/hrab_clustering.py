@@ -88,8 +88,11 @@ def cluster_wf_in_hrab(workflow, cluster_num):
                 update_fw_info(cluster)
             update_parent_child_relationships(clusters)
             for cluster in clusters:
+                sequential_ids = []
                 for task in cluster.get_cluster_tasks():
                     workflow.delete_node(task.get_fw_id())
+                    sequential_ids.append(task.get_fw_id())
+                cluster.set_sequential_ids(sequential_ids)
                 cluster.set_fw_id(task.get_fw_id())
                 workflow.add_node(task.get_fw_id(), cluster)
     workflow.update_links()
