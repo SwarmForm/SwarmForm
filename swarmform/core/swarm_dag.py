@@ -1,4 +1,3 @@
-
 class Node:
 
     def __init__(self, fw_id, level, fw_info, assigned=False, parents=None, children=None):
@@ -52,6 +51,9 @@ class Node:
     def set_parallel_ids(self, id_list, key):
         self._parallel_ids[key] = id_list
 
+    def set_fw_id(self, fw_id):
+        self._fw_id = fw_id
+
     def get_fw_ids_to_cluster_parallely(self):
         return self._parallel_ids
 
@@ -75,7 +77,7 @@ class Node:
 
     def get_num_cores(self):
         if self._fw_info:
-            return self._fw_info['cores']
+            return self._fw_info['nnodes']
         else:
             return None
 
