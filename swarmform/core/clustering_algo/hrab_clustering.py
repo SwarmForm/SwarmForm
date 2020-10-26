@@ -90,7 +90,8 @@ def cluster_wf_in_hrab(workflow, cluster_num):
             for cluster in clusters:
                 for task in cluster.get_cluster_tasks():
                     workflow.delete_node(task.get_fw_id())
-                workflow.add_node(-1 * task.get_fw_id(), cluster)
+                cluster.set_fw_id(task.get_fw_id())
+                workflow.add_node(task.get_fw_id(), cluster)
     workflow.update_links()
     return workflow
 
