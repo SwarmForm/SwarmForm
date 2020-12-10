@@ -7,7 +7,7 @@ from fireworks import Firework, ScriptTask
 from swarmform.core.swarmwork import SwarmFlow
 
 
-class WorkflowGenerator():
+class WorkflowGenerator:
 
     @classmethod
     # Read input from DAX file

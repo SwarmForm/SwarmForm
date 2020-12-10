@@ -184,7 +184,7 @@ def get_clustering_factors(clusters, task, avg_cores, avg_runtime):
     factor_map = {}
     for cluster in clusters:
         factor = (0.1 + abs(task.get_normalized_cores() - get_max_cores_in_cluster(cluster, avg_cores))) * (
-                0.1 + abs(task.get_normalized_runtime() - get_total_runtime(cluster, avg_runtime)))
+                0.1 + get_total_runtime(cluster, avg_runtime))
         if factor not in factor_map:
             factor_map[factor] = []
         c_list = factor_map.get(factor)
@@ -286,19 +286,3 @@ def is_child_already_assigned(task, child_id):
             return True
     return False
 
-
-# For testing the clustering
-swarmpad = SwarmPad()
-swarmpad.reset('', require_password=False)
-
-filename = '/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml'
-# create the Firework consisting of a custom "Addition" task
-unclustered_sf = SwarmFlow.from_file(filename)
-
-# store workflow
-swarmpad.add_sf(unclustered_sf)
-sf = swarmpad.get_sf_by_id(unclustered_sf.sf_id)
-sf_dag = DAG(sf)
-
-clusterd_wf = cluster_wf_in_hrab(sf_dag, 3)
-print(clusterd_wf)
