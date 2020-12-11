@@ -7,7 +7,7 @@ if __name__ == "__main__":
 	swarmpad = SwarmPad()
 	swarmpad.reset('', require_password=False)
 
-	filename = "/Users/randika/Documents/FYP/SwarmForm/swarmform/examples/cluster_examples/test_workflow.yaml"
+	filename = "/home/ayesh/SwarmForm/swarmform/examples/workflow_generator_examples/LIGO_100-1607683547/LIGO_100.yaml"
 	# create the Firework consisting of a custom "Addition" task
 	unclustered_sf = SwarmFlow.from_file(filename)
 

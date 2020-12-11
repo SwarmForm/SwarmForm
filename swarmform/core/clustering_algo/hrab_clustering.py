@@ -1,6 +1,5 @@
 from swarmform.core.swarm_dag import Node, DAG
-from swarmform import SwarmPad
-from swarmform.core.swarmwork import SwarmFlow
+from swarmform.util.resource_wastage import calc_wastage
 
 
 def get_tasks_at_level(workflow, level):
@@ -96,6 +95,8 @@ def cluster_wf_in_hrab(workflow, cluster_num):
                 cluster.set_fw_id(task.get_fw_id())
                 workflow.add_node(task.get_fw_id(), cluster)
     workflow.update_links()
+
+    calc_wastage(workflow, 'hrab')
     return workflow
 
 
