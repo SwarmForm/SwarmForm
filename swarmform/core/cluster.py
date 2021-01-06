@@ -1,11 +1,12 @@
 from fireworks import Firework, ScriptTask
 from swarmform import ParallelTask
+from swarmform.core.clustering_algo.hrab_clustering import cluster_wf_in_hrab
 from swarmform.core.swarm_dag import DAG
 from swarmform.core.clustering_algo.wpa_clustering import wpa_clustering, cluster_vertically
 from swarmform.core.swarmwork import SwarmFlow
 
 
-def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallely_clustered_fw_ids):
+def combine_fws_sequentially(swarmpad, fw_ids):
     """
     Combine a set of fireworks into a single firework
 
@@ -19,33 +20,23 @@ def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallel
         combinedFW (Firework)
     """
 
-    fws = parallely_clustered_fws
-
-    parallel_fw_ids = parallely_clustered_fw_ids.values()
-
     firetask = []
-
-    # Get the firetasks of parallel fireworks and add to firetask list
-    for parallel_fw in fws:
-        for task in parallel_fw.tasks:
-            firetask.append(task)
 
     # Get firework from swarmpad if it is not available in parallely_clustered_fws list
     for fw_id in fw_ids:
-        if fw_id not in parallel_fw_ids:
-            firetask_list = swarmpad.get_fw_by_id(fw_id).spec['_tasks']
-            num_firetasks = len(firetask_list)
-            # Check whether a firework has no firetasks
-            if num_firetasks == 0:
-                raise ValueError('No Firetasks available in the Firework')
-            # Check whether the firework has multiple firetasks - Not checking firetasks recursively at the moment
-            if num_firetasks > 1:
-                # If multiple firetasks are available, add each task to firetask list
-                for firetask_index in range(0, num_firetasks):
-                    firetask.append(firetask_list[firetask_index])
-            # If only a single firetask is there, get the first firetask and add it to the combined firetask
-            else:
-                firetask.append(firetask_list[0])
+        firetask_list = swarmpad.get_fw_by_id(fw_id).spec['_tasks']
+        num_firetasks = len(firetask_list)
+        # Check whether a firework has no firetasks
+        if num_firetasks == 0:
+            raise ValueError('No Firetasks available in the Firework')
+        # Check whether the firework has multiple firetasks - Not checking firetasks recursively at the moment
+        if num_firetasks > 1:
+            # If multiple firetasks are available, add each task to firetask list
+            for firetask_index in range(0, num_firetasks):
+                firetask.append(firetask_list[firetask_index])
+        # If only a single firetask is there, get the first firetask and add it to the combined firetask
+        else:
+            firetask.append(firetask_list[0])
 
     # Create a firework from the combined firetasks
     combined_fw = Firework(firetask)
@@ -57,7 +48,6 @@ def combine_fws_sequentially(swarmpad, fw_ids, parallely_clustered_fws, parallel
 '''
 * Only scriptTasks are given
 * Command in scriptTasks are static
-* fws to combine parallely have only a single firetask
 '''
 
 
@@ -116,14 +106,15 @@ def update_parent_child_relationships(links_dict, old_id, new_id):
     return links_dict
 
 
-def cluster_sf(swarmpad, sf_id):
-
+def cluster_sf(swarmpad, sf_id, algo="rac", clusters=5):
     """
     Pull the swarmflow from given sf_id and create a clustered swarmflow
 
     Args:
         swarmpad (SwarmPad)
         sf_id (int): id of the swarmflow to pull
+        algo (str): "wpa" or "rac"
+        clusters (int): Number of clusters
 
     Returns:
         Clustered_swarmflow (SwarmFlow)
@@ -131,9 +122,17 @@ def cluster_sf(swarmpad, sf_id):
     # Retrieve the relevant swarmflow from the swarmpad
     sf = swarmpad.get_sf_by_id(sf_id)
     sf_dag = DAG(sf)
-    vertically_clustered_dag = cluster_vertically(sf_dag)
-    # Cluster the swarmflow DAG
-    clustered_sf_dag = wpa_clustering(vertically_clustered_dag)
+
+    swarmpad.m_logger.info('Clustering the workflow using {} algorithm'.format(algo.upper()))
+    if algo == "wpa":
+        vertically_clustered_dag = cluster_vertically(sf_dag)
+        # Cluster the swarmflow DAG using WPA algorithm
+        clustered_sf_dag = wpa_clustering(vertically_clustered_dag)
+    else:
+        # Cluster the swarmflow DAG using HRAB algorithm
+        clustered_sf_dag = cluster_wf_in_hrab(sf_dag, clusters)
+        swarmpad.m_logger.info('Number of clusters: {}'.format(clusters))
+
     # Get parent-child relationships of the clustered dag {cluster_id : [fw_ids] }
     # eg: links {17: [18, 19, 21, 20], 18: [23], 19: [23], 21: [23], 20: [23]}
     links_dict = clustered_sf_dag.get_parent_child_relationships()
@@ -142,30 +141,12 @@ def cluster_sf(swarmpad, sf_id):
     clustered_fws = []
 
     for key in nodes:
-        # Dictionary of parallel clusters
-        fw_ids_to_cluster_parallely = nodes[key].get_fw_ids_to_cluster_parallely()
         # List of sequential fireworks
         fw_ids_to_cluster_sequentially = nodes[key].get_fw_ids_to_cluster_sequentially()
 
-        # List for storing parallely clustered fireworks
-        parallely_clustered_fws = []
-        # Dict for storing new firework id of the clustered firework with respect to its cluster id
-        parallely_clustered_fw_ids = {}
-
-        if len(fw_ids_to_cluster_parallely) != 0:
-            for cluster_id in fw_ids_to_cluster_parallely:
-                parallely_clustered_fw = combine_fws_parallely(swarmpad, fw_ids_to_cluster_parallely[cluster_id])
-                parallely_clustered_fws.append(parallely_clustered_fw)
-                parallely_clustered_fw_ids.update({cluster_id: parallely_clustered_fw.fw_id})
-
-        # Replace the cluster id in sequential fws to cluster with its new fw id
-        fw_ids_to_cluster_sequentially = [parallely_clustered_fw_ids.get(n, n) for n in
-                                          fw_ids_to_cluster_sequentially]
-
         # If multiple fireworks are available, cluster them and to clustered_fws
         if len(fw_ids_to_cluster_sequentially) > 1:
-            combined_fw = combine_fws_sequentially(swarmpad, fw_ids_to_cluster_sequentially, parallely_clustered_fws,
-                                                   parallely_clustered_fw_ids)
+            combined_fw = combine_fws_sequentially(swarmpad, fw_ids_to_cluster_sequentially)
             for fw_id in fw_ids_to_cluster_sequentially:
                 links_dict = update_parent_child_relationships(links_dict, fw_id, combined_fw.fw_id)
 

@@ -1,0 +1,309 @@
+<ns0:adag xmlns:ns0="http://pegasus.isi.edu/schema/DAX" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" childCount="23" count="1" fileCount="0" index="0" jobCount="30" name="test" version="2.1" xsi:schemaLocation="http://pegasus.isi.edu/schema/DAX http://pegasus.isi.edu/schema/dax-2.1.xsd">
+
+
+  <ns0:job cores="5" id="ID00000" level="0" name="TmpltBank" namespace="LIGO" runtime="17.83" version="1.0">
+    <ns0:uses file="H-H1_RDS_L4-814271587-1024.gwf" link="input" optional="false" register="true" size="15628226" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853705-1024.gwf" link="input" optional="false" register="true" size="15609369" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-813213228-2048.xml" link="output" optional="false" register="true" size="992860" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="17" id="ID00001" level="0" name="TmpltBank" namespace="LIGO" runtime="17.97" version="1.0">
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853706-1024.gwf" link="input" optional="false" register="true" size="15598939" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271588-1024.gwf" link="input" optional="false" register="true" size="15641620" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-786551430-2048.xml" link="output" optional="false" register="true" size="983877" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="5" id="ID00002" level="0" name="TmpltBank" namespace="LIGO" runtime="17.62" version="1.0">
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271589-1024.gwf" link="input" optional="false" register="true" size="15586481" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853707-1024.gwf" link="input" optional="false" register="true" size="15600372" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-821310543-2048.xml" link="output" optional="false" register="true" size="982316" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="2" id="ID00003" level="0" name="TmpltBank" namespace="LIGO" runtime="17.75" version="1.0">
+    <ns0:uses file="H-H1_RDS_L4-855853708-1024.gwf" link="input" optional="false" register="true" size="15576090" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271590-1024.gwf" link="input" optional="false" register="true" size="15591099" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-800458030-2048.xml" link="output" optional="false" register="true" size="1009501" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="1" id="ID00004" level="0" name="TmpltBank" namespace="LIGO" runtime="18.05" version="1.0">
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271591-1024.gwf" link="input" optional="false" register="true" size="15581755" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853709-1024.gwf" link="input" optional="false" register="true" size="15583818" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-795197586-2048.xml" link="output" optional="false" register="true" size="989550" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="6" id="ID00005" level="0" name="TmpltBank" namespace="LIGO" runtime="17.57" version="1.0">
+    <ns0:uses file="H-H1_RDS_L4-855853710-1024.gwf" link="input" optional="false" register="true" size="15579970" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271592-1024.gwf" link="input" optional="false" register="true" size="15603086" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-879058836-2048.xml" link="output" optional="false" register="true" size="995701" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="10" id="ID00006" level="0" name="TmpltBank" namespace="LIGO" runtime="18.23" version="1.0">
+    <ns0:uses file="H-H1_RDS_L4-814271593-1024.gwf" link="input" optional="false" register="true" size="15597923" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853711-1024.gwf" link="input" optional="false" register="true" size="15580489" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-824915220-2048.xml" link="output" optional="false" register="true" size="978215" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="18" id="ID00007" level="1" name="Inspiral" namespace="LIGO" runtime="674.74" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271587-1024.gwf" link="input" optional="false" register="true" size="15628226" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853705-1024.gwf" link="input" optional="false" register="true" size="15609369" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-813213228-2048.xml" link="input" optional="false" register="true" size="992860" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-813213228-2048.xml" link="output" optional="false" register="true" size="341444" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="11" id="ID00008" level="1" name="Inspiral" namespace="LIGO" runtime="350.25" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853706-1024.gwf" link="input" optional="false" register="true" size="15598939" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271588-1024.gwf" link="input" optional="false" register="true" size="15641620" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-786551430-2048.xml" link="input" optional="false" register="true" size="983877" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-786551430-2048.xml" link="output" optional="false" register="true" size="165251" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="1" id="ID00009" level="1" name="Inspiral" namespace="LIGO" runtime="594.63" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271589-1024.gwf" link="input" optional="false" register="true" size="15586481" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853707-1024.gwf" link="input" optional="false" register="true" size="15600372" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-821310543-2048.xml" link="input" optional="false" register="true" size="982316" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-821310543-2048.xml" link="output" optional="false" register="true" size="402601" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="13" id="ID00010" level="1" name="Inspiral" namespace="LIGO" runtime="519.19" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853708-1024.gwf" link="input" optional="false" register="true" size="15576090" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271590-1024.gwf" link="input" optional="false" register="true" size="15591099" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-800458030-2048.xml" link="input" optional="false" register="true" size="1009501" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-800458030-2048.xml" link="output" optional="false" register="true" size="228253" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="9" id="ID00011" level="1" name="Inspiral" namespace="LIGO" runtime="535.21" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271591-1024.gwf" link="input" optional="false" register="true" size="15581755" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853709-1024.gwf" link="input" optional="false" register="true" size="15583818" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-795197586-2048.xml" link="input" optional="false" register="true" size="989550" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-795197586-2048.xml" link="output" optional="false" register="true" size="233774" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="12" id="ID00012" level="1" name="Inspiral" namespace="LIGO" runtime="332.09" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853710-1024.gwf" link="input" optional="false" register="true" size="15579970" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271592-1024.gwf" link="input" optional="false" register="true" size="15603086" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-879058836-2048.xml" link="input" optional="false" register="true" size="995701" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-879058836-2048.xml" link="output" optional="false" register="true" size="275315" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="7" id="ID00013" level="1" name="Inspiral" namespace="LIGO" runtime="344.11" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271593-1024.gwf" link="input" optional="false" register="true" size="15597923" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853711-1024.gwf" link="input" optional="false" register="true" size="15580489" transfer="true" type="data" />
+    <ns0:uses file="H1-TMPLTBANK-824915220-2048.xml" link="input" optional="false" register="true" size="978215" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-824915220-2048.xml" link="output" optional="false" register="true" size="410359" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00014" level="2" name="Thinca" namespace="LIGO" runtime="5.61" version="1.0">
+    <ns0:uses file="H1-INSPIRAL-813213228-2048.xml" link="input" optional="false" register="true" size="341444" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-786551430-2048.xml" link="input" optional="false" register="true" size="165251" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-821310543-2048.xml" link="input" optional="false" register="true" size="402601" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-800458030-2048.xml" link="input" optional="false" register="true" size="228253" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-795197586-2048.xml" link="input" optional="false" register="true" size="233774" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-879058836-2048.xml" link="input" optional="false" register="true" size="275315" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL-824915220-2048.xml" link="input" optional="false" register="true" size="410359" transfer="true" type="data" />
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="output" optional="false" register="true" size="41274" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="7" id="ID00015" level="3" name="TrigBank" namespace="LIGO" runtime="5.77" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="41274" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-752964562-4102.xml" link="output" optional="false" register="true" size="7733" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="17" id="ID00016" level="3" name="TrigBank" namespace="LIGO" runtime="5.43" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="30607" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-830618747-9830.xml" link="output" optional="false" register="true" size="15310" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="11" id="ID00017" level="3" name="TrigBank" namespace="LIGO" runtime="4.93" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="20368" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-732568484-2327.xml" link="output" optional="false" register="true" size="16310" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="2" id="ID00018" level="3" name="TrigBank" namespace="LIGO" runtime="5.26" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="19233" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-735717319-2531.xml" link="output" optional="false" register="true" size="8309" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="3" id="ID00019" level="3" name="TrigBank" namespace="LIGO" runtime="4.98" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="18140" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-767422387-1058.xml" link="output" optional="false" register="true" size="6501" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="10" id="ID00020" level="3" name="TrigBank" namespace="LIGO" runtime="5.35" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="30194" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-746740535-43.xml" link="output" optional="false" register="true" size="6836" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="17" id="ID00021" level="3" name="TrigBank" namespace="LIGO" runtime="5.26" version="1.0">
+    <ns0:uses file="H1-THINCA-879058836-2048.xml" link="input" optional="false" register="true" size="40707" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-750172401-7977.xml" link="output" optional="false" register="true" size="16024" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="15" id="ID00022" level="4" name="Inspiral" namespace="LIGO" runtime="626.38" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271587-1024.gwf" link="input" optional="false" register="true" size="15628226" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853705-1024.gwf" link="input" optional="false" register="true" size="15609369" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-752964562-4102.xml" link="input" optional="false" register="true" size="7733" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-752964562-4102.xml" link="output" optional="false" register="true" size="455353" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="18" id="ID00023" level="4" name="Inspiral" namespace="LIGO" runtime="612.78" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853706-1024.gwf" link="input" optional="false" register="true" size="15598939" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271588-1024.gwf" link="input" optional="false" register="true" size="15641620" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-830618747-9830.xml" link="input" optional="false" register="true" size="15310" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-830618747-9830.xml" link="output" optional="false" register="true" size="273971" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="6" id="ID00024" level="4" name="Inspiral" namespace="LIGO" runtime="418.39" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271589-1024.gwf" link="input" optional="false" register="true" size="15586481" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853707-1024.gwf" link="input" optional="false" register="true" size="15600372" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-732568484-2327.xml" link="input" optional="false" register="true" size="16310" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-732568484-2327.xml" link="output" optional="false" register="true" size="308593" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="14" id="ID00025" level="4" name="Inspiral" namespace="LIGO" runtime="255.61" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853708-1024.gwf" link="input" optional="false" register="true" size="15576090" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271590-1024.gwf" link="input" optional="false" register="true" size="15591099" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-735717319-2531.xml" link="input" optional="false" register="true" size="8309" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-735717319-2531.xml" link="output" optional="false" register="true" size="412189" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="15" id="ID00026" level="4" name="Inspiral" namespace="LIGO" runtime="305.70" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271591-1024.gwf" link="input" optional="false" register="true" size="15581755" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853709-1024.gwf" link="input" optional="false" register="true" size="15583818" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-767422387-1058.xml" link="input" optional="false" register="true" size="6501" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-767422387-1058.xml" link="output" optional="false" register="true" size="278778" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="3" id="ID00027" level="4" name="Inspiral" namespace="LIGO" runtime="510.37" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853710-1024.gwf" link="input" optional="false" register="true" size="15579970" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271592-1024.gwf" link="input" optional="false" register="true" size="15603086" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-746740535-43.xml" link="input" optional="false" register="true" size="6836" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-746740535-43.xml" link="output" optional="false" register="true" size="395715" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="13" id="ID00028" level="4" name="Inspiral" namespace="LIGO" runtime="365.16" version="1.0">
+    <ns0:uses file="HL-INJECTIONS_100-877182655-7357981.xml" link="input" optional="false" register="true" size="2421423" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-814271593-1024.gwf" link="input" optional="false" register="true" size="15597923" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_FAC_DARM_ERR_H1_S5_U_060-816431677-271513184.gwf" link="input" optional="false" register="true" size="8415922" transfer="true" type="data" />
+    <ns0:uses file="H-CAL_REF_DARM_ERR_H1_S5_V1-791418971-8.gwf" link="input" optional="false" register="true" size="902334" transfer="true" type="data" />
+    <ns0:uses file="H-H1_RDS_L4-855853711-1024.gwf" link="input" optional="false" register="true" size="15580489" transfer="true" type="data" />
+    <ns0:uses file="H1-TRIGBANK_H1-750172401-7977.xml" link="input" optional="false" register="true" size="16024" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-750172401-7977.xml" link="output" optional="false" register="true" size="367983" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="1" id="ID00029" level="5" name="Thinca" namespace="LIGO" runtime="4.85" version="1.0">
+    <ns0:uses file="H1-INSPIRAL_H1-752964562-4102.xml" link="input" optional="false" register="true" size="455353" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-830618747-9830.xml" link="input" optional="false" register="true" size="273971" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-732568484-2327.xml" link="input" optional="false" register="true" size="308593" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-735717319-2531.xml" link="input" optional="false" register="true" size="412189" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-767422387-1058.xml" link="input" optional="false" register="true" size="278778" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-746740535-43.xml" link="input" optional="false" register="true" size="395715" transfer="true" type="data" />
+    <ns0:uses file="H1-INSPIRAL_H1-750172401-7977.xml" link="input" optional="false" register="true" size="367983" transfer="true" type="data" />
+    <ns0:uses file="H1-THINCA_H1-746740535-43.xml" link="output" optional="false" register="true" size="25535" transfer="true" type="data" />
+  </ns0:job>
+
+  <ns0:child ref="ID00007">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00008">
+    <ns0:parent ref="ID00001" />
+  </ns0:child>
+  <ns0:child ref="ID00009">
+    <ns0:parent ref="ID00002" />
+  </ns0:child>
+  <ns0:child ref="ID00010">
+    <ns0:parent ref="ID00003" />
+  </ns0:child>
+  <ns0:child ref="ID00011">
+    <ns0:parent ref="ID00004" />
+  </ns0:child>
+  <ns0:child ref="ID00012">
+    <ns0:parent ref="ID00005" />
+  </ns0:child>
+  <ns0:child ref="ID00013">
+    <ns0:parent ref="ID00006" />
+  </ns0:child>
+  <ns0:child ref="ID00014">
+    <ns0:parent ref="ID00012" />
+    <ns0:parent ref="ID00013" />
+    <ns0:parent ref="ID00010" />
+    <ns0:parent ref="ID00011" />
+    <ns0:parent ref="ID00009" />
+    <ns0:parent ref="ID00008" />
+    <ns0:parent ref="ID00007" />
+  </ns0:child>
+  <ns0:child ref="ID00015">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00016">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00017">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00018">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00019">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00020">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00021">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00022">
+    <ns0:parent ref="ID00015" />
+  </ns0:child>
+  <ns0:child ref="ID00023">
+    <ns0:parent ref="ID00016" />
+  </ns0:child>
+  <ns0:child ref="ID00024">
+    <ns0:parent ref="ID00017" />
+  </ns0:child>
+  <ns0:child ref="ID00025">
+    <ns0:parent ref="ID00018" />
+  </ns0:child>
+  <ns0:child ref="ID00026">
+    <ns0:parent ref="ID00019" />
+  </ns0:child>
+  <ns0:child ref="ID00027">
+    <ns0:parent ref="ID00020" />
+  </ns0:child>
+  <ns0:child ref="ID00028">
+    <ns0:parent ref="ID00021" />
+  </ns0:child>
+  <ns0:child ref="ID00029">
+    <ns0:parent ref="ID00022" />
+    <ns0:parent ref="ID00023" />
+    <ns0:parent ref="ID00024" />
+    <ns0:parent ref="ID00025" />
+    <ns0:parent ref="ID00026" />
+    <ns0:parent ref="ID00027" />
+    <ns0:parent ref="ID00028" />
+  </ns0:child>
+</ns0:adag>

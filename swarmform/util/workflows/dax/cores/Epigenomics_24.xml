@@ -1,0 +1,195 @@
+<ns0:adag xmlns:ns0="http://pegasus.isi.edu/schema/DAX" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" childCount="23" count="1" fileCount="0" index="0" jobCount="24" name="test" version="2.1" xsi:schemaLocation="http://pegasus.isi.edu/schema/DAX http://pegasus.isi.edu/schema/dax-2.1.xsd">
+
+
+  <ns0:job cores="18" id="ID00000" name="fastqSplit_chr21" namespace="Genome" runtime="103.52" version="1.0">
+    <ns0:uses file="chr210.sfq" link="input" optional="false" register="true" size="446859355" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.sfq" link="output" optional="false" register="true" size="85534312" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.sfq" link="output" optional="false" register="true" size="98262176" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.sfq" link="output" optional="false" register="true" size="80623179" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.sfq" link="output" optional="false" register="true" size="98592518" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.sfq" link="output" optional="false" register="true" size="83847170" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="13" id="ID00001" name="filterContams_chr21" namespace="Genome" runtime="7.01" version="1.0">
+    <ns0:uses file="chr21.0.0.sfq" link="input" optional="false" register="true" size="85534312" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.nocontam.sfq" link="output" optional="false" register="true" size="44066037" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.contam.sfq" link="output" optional="false" register="true" size="41468275" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="9" id="ID00002" name="filterContams_chr21" namespace="Genome" runtime="8.23" version="1.0">
+    <ns0:uses file="chr21.0.1.sfq" link="input" optional="false" register="true" size="98262176" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.sfq" link="output" optional="false" register="true" size="48142335" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.contam.sfq" link="output" optional="false" register="true" size="50119841" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="16" id="ID00003" name="filterContams_chr21" namespace="Genome" runtime="8.15" version="1.0">
+    <ns0:uses file="chr21.0.2.sfq" link="input" optional="false" register="true" size="80623179" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.sfq" link="output" optional="false" register="true" size="38553524" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.contam.sfq" link="output" optional="false" register="true" size="42069655" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="20" id="ID00004" name="filterContams_chr21" namespace="Genome" runtime="9.25" version="1.0">
+    <ns0:uses file="chr21.0.3.sfq" link="input" optional="false" register="true" size="98592518" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.sfq" link="output" optional="false" register="true" size="47435716" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.contam.sfq" link="output" optional="false" register="true" size="51156802" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00005" name="filterContams_chr21" namespace="Genome" runtime="11.89" version="1.0">
+    <ns0:uses file="chr21.0.4.sfq" link="input" optional="false" register="true" size="83847170" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.sfq" link="output" optional="false" register="true" size="43314524" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.contam.sfq" link="output" optional="false" register="true" size="40532646" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="11" id="ID00006" name="sol2sanger_chr21" namespace="Genome" runtime="2.36" version="1.0">
+    <ns0:uses file="chr21.0.0.nocontam.sfq" link="input" optional="false" register="true" size="44066037" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.nocontam.fq" link="output" optional="false" register="true" size="24613282" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00007" name="sol2sanger_chr21" namespace="Genome" runtime="3.54" version="1.0">
+    <ns0:uses file="chr21.0.1.nocontam.sfq" link="input" optional="false" register="true" size="48142335" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.fq" link="output" optional="false" register="true" size="44753970" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="2" id="ID00008" name="sol2sanger_chr21" namespace="Genome" runtime="3.26" version="1.0">
+    <ns0:uses file="chr21.0.2.nocontam.sfq" link="input" optional="false" register="true" size="38553524" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.fq" link="output" optional="false" register="true" size="24969343" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="2" id="ID00009" name="sol2sanger_chr21" namespace="Genome" runtime="3.06" version="1.0">
+    <ns0:uses file="chr21.0.3.nocontam.sfq" link="input" optional="false" register="true" size="47435716" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.fq" link="output" optional="false" register="true" size="36701822" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="12" id="ID00010" name="sol2sanger_chr21" namespace="Genome" runtime="5.02" version="1.0">
+    <ns0:uses file="chr21.0.4.nocontam.sfq" link="input" optional="false" register="true" size="43314524" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.fq" link="output" optional="false" register="true" size="37310027" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00011" name="fastq2bfq_chr21" namespace="Genome" runtime="4.25" version="1.0">
+    <ns0:uses file="chr21.0.0.nocontam.fq" link="input" optional="false" register="true" size="24613282" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.nocontam.bfq" link="output" optional="false" register="true" size="6918721" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="5" id="ID00012" name="fastq2bfq_chr21" namespace="Genome" runtime="5.91" version="1.0">
+    <ns0:uses file="chr21.0.1.nocontam.fq" link="input" optional="false" register="true" size="44753970" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.bfq" link="output" optional="false" register="true" size="10323313" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="1" id="ID00013" name="fastq2bfq_chr21" namespace="Genome" runtime="4.03" version="1.0">
+    <ns0:uses file="chr21.0.2.nocontam.fq" link="input" optional="false" register="true" size="24969343" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.bfq" link="output" optional="false" register="true" size="5956867" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="14" id="ID00014" name="fastq2bfq_chr21" namespace="Genome" runtime="4.72" version="1.0">
+    <ns0:uses file="chr21.0.3.nocontam.fq" link="input" optional="false" register="true" size="36701822" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.bfq" link="output" optional="false" register="true" size="9015905" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="20" id="ID00015" name="fastq2bfq_chr21" namespace="Genome" runtime="5.16" version="1.0">
+    <ns0:uses file="chr21.0.4.nocontam.fq" link="input" optional="false" register="true" size="37310027" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.bfq" link="output" optional="false" register="true" size="9039432" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00016" name="map_chr21" namespace="Genome" runtime="2830.54" version="1.0">
+    <ns0:uses file="chr21.BS.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.nocontam.bfq" link="input" optional="false" register="true" size="6918721" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.0.nocontam.map" link="output" optional="false" register="true" size="7520348" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="3" id="ID00017" name="map_chr21" namespace="Genome" runtime="3196.40" version="1.0">
+    <ns0:uses file="chr21.BS.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.bfq" link="input" optional="false" register="true" size="10323313" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.map" link="output" optional="false" register="true" size="11220992" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="14" id="ID00018" name="map_chr21" namespace="Genome" runtime="2425.31" version="1.0">
+    <ns0:uses file="chr21.BS.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.bfq" link="input" optional="false" register="true" size="5956867" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.map" link="output" optional="false" register="true" size="6474855" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="4" id="ID00019" name="map_chr21" namespace="Genome" runtime="3623.08" version="1.0">
+    <ns0:uses file="chr21.BS.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.bfq" link="input" optional="false" register="true" size="9015905" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.map" link="output" optional="false" register="true" size="9799896" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="3" id="ID00020" name="map_chr21" namespace="Genome" runtime="4062.96" version="1.0">
+    <ns0:uses file="chr21.BS.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.bfq" link="input" optional="false" register="true" size="9039432" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.map" link="output" optional="false" register="true" size="9825469" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="14" id="ID00021" name="mapMerge_chr21" namespace="Genome" runtime="17.23" version="1.0">
+    <ns0:uses file="chr21.0.0.nocontam.map" link="input" optional="false" register="true" size="7520348" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.1.nocontam.map" link="input" optional="false" register="true" size="11220992" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.2.nocontam.map" link="input" optional="false" register="true" size="6474855" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.3.nocontam.map" link="input" optional="false" register="true" size="9799896" transfer="true" type="data" />
+    <ns0:uses file="chr21.0.4.nocontam.map" link="input" optional="false" register="true" size="9825469" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.map" link="output" optional="false" register="true" size="42303358" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.map.zr" link="output" optional="false" register="true" size="1594189" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.map.vm" link="output" optional="false" register="true" size="173647" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="8" id="ID00022" name="maqindex_chr21" namespace="Genome" runtime="0.05" version="1.0">
+    <ns0:uses file="chr21.nocontam.map" link="input" optional="false" register="true" size="42303358" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.chr.map" link="output" optional="false" register="true" size="641552" transfer="true" type="data" />
+  </ns0:job>
+  <ns0:job cores="2" id="ID00023" name="pileup_chr21" namespace="Genome" runtime="1375.22" version="1.0">
+    <ns0:uses file="chr21.BSnull.bfa" link="input" optional="false" register="true" size="1249174122" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.chr.map" link="input" optional="false" register="true" size="641552" transfer="true" type="data" />
+    <ns0:uses file="chr21.nocontam.chr.pileup" link="output" optional="false" register="true" size="3795582" transfer="true" type="data" />
+  </ns0:job>
+
+  <ns0:child ref="ID00001">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00002">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00003">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00004">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00005">
+    <ns0:parent ref="ID00000" />
+  </ns0:child>
+  <ns0:child ref="ID00006">
+    <ns0:parent ref="ID00001" />
+  </ns0:child>
+  <ns0:child ref="ID00007">
+    <ns0:parent ref="ID00002" />
+  </ns0:child>
+  <ns0:child ref="ID00008">
+    <ns0:parent ref="ID00003" />
+  </ns0:child>
+  <ns0:child ref="ID00009">
+    <ns0:parent ref="ID00004" />
+  </ns0:child>
+  <ns0:child ref="ID00010">
+    <ns0:parent ref="ID00005" />
+  </ns0:child>
+  <ns0:child ref="ID00011">
+    <ns0:parent ref="ID00006" />
+  </ns0:child>
+  <ns0:child ref="ID00012">
+    <ns0:parent ref="ID00007" />
+  </ns0:child>
+  <ns0:child ref="ID00013">
+    <ns0:parent ref="ID00008" />
+  </ns0:child>
+  <ns0:child ref="ID00014">
+    <ns0:parent ref="ID00009" />
+  </ns0:child>
+  <ns0:child ref="ID00015">
+    <ns0:parent ref="ID00010" />
+  </ns0:child>
+  <ns0:child ref="ID00016">
+    <ns0:parent ref="ID00011" />
+  </ns0:child>
+  <ns0:child ref="ID00017">
+    <ns0:parent ref="ID00012" />
+  </ns0:child>
+  <ns0:child ref="ID00018">
+    <ns0:parent ref="ID00013" />
+  </ns0:child>
+  <ns0:child ref="ID00019">
+    <ns0:parent ref="ID00014" />
+  </ns0:child>
+  <ns0:child ref="ID00020">
+    <ns0:parent ref="ID00015" />
+  </ns0:child>
+  <ns0:child ref="ID00021">
+    <ns0:parent ref="ID00020" />
+    <ns0:parent ref="ID00016" />
+    <ns0:parent ref="ID00017" />
+    <ns0:parent ref="ID00018" />
+    <ns0:parent ref="ID00019" />
+  </ns0:child>
+  <ns0:child ref="ID00022">
+    <ns0:parent ref="ID00021" />
+  </ns0:child>
+  <ns0:child ref="ID00023">
+    <ns0:parent ref="ID00022" />
+  </ns0:child>
+</ns0:adag>

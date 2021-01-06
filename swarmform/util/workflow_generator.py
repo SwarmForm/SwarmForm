@@ -7,7 +7,7 @@ from fireworks import Firework, ScriptTask
 from swarmform.core.swarmwork import SwarmFlow
 
 
-class WorkflowGenerator():
+class WorkflowGenerator:
 
     @classmethod
     # Read input from DAX file
@@ -34,7 +34,15 @@ class WorkflowGenerator():
                 # Set execution time as the first element of the firework
                 # Set cores to zero as it is considered only in parallel task clustering
                 # Set empty list to add children
-                firework = [round((float(child.attrib['runtime'])/float(10)), 3), 0]
+                if (child.attrib.get('runtime',None)):
+                    runtime = round((float(child.attrib['runtime'])/float(10)), 3)
+                else:
+                    runtime = 0
+                if (child.attrib.get('cores',None)):
+                    cores = int(child.attrib['cores'])
+                else:
+                    cores = 0
+                firework = [runtime, cores]
                 workflow_dict.update({fw_id: firework})
 
                 # Create a mapping between dax job id and firework id
@@ -120,12 +128,12 @@ class WorkflowGenerator():
 
     @classmethod
     # Create firework for each shell script
-    def create_firework(cls, filename):
+    def create_firework(cls, filename,spec):
         cur_dir = os.getcwd()
         task_path = cur_dir + "/" + filename
         command = "sh " + task_path
         task = ScriptTask.from_str(command)
-        firework = Firework(task)
+        firework = Firework(task, spec=spec)
         return firework
 
     @classmethod
@@ -137,13 +145,20 @@ class WorkflowGenerator():
         for job_id in jobs:
             filename = dir_name + "/task" + str(job_id) + ".sh"
             job_exec_time = jobs[job_id][0]
+            cores = jobs[job_id][1]
             script = cls.gen_script(job_id, job_exec_time)
 
             with open(filename, 'w+') as f:
                 f.write(script)
 
+            spec = {
+                "_queueadapter": {
+                    "exec_time":job_exec_time,
+                    "cores":cores
+                }
+            }
         # Create firework for each job given
-            firework = cls.create_firework(filename)
+            firework = cls.create_firework(filename,spec)
             fws.append(firework)
 
         return fws
@@ -153,28 +168,6 @@ class WorkflowGenerator():
     def map_list_positions(cls, child_id):
         index = child_id - 1
         return index
-
-    @classmethod
-    # Create metadata for each firework
-    def create_metadata(cls, jobs, fireworks):
-
-        # output format { 'costs' : {fw_id : {'exec_time' : x , 'cores' : y }}}
-        metadata = {'costs': {}}
-        for job_id in jobs:
-            # 1st element in jobs dictionary represent execution time of the firework
-            # 2nd element in jobs dictionary represent cores required for the firework
-            exec_time = jobs[job_id][0]
-            cores = jobs[job_id][1]
-
-            # Get the position of firework in the fireworks list
-            parent_fw_position = job_id - 1
-            metadata_dict = {'exec_time': exec_time, 'cores': cores}
-            fw_id = fireworks[parent_fw_position].fw_id
-
-            # Create metadata dictionary for each firework and add it to metadata dictionary
-            metadata['costs'].update({fw_id: metadata_dict})
-
-        return metadata
 
     @classmethod
     # Create the dependency dictionary using the given parent-child relationships
@@ -222,7 +215,6 @@ class WorkflowGenerator():
         dir_name = cls.create_directory(swarmflow_name)
         fireworks = cls.create_scripts(dir_name, jobs)
         dependencies = cls.create_dependencies(jobs, fireworks)
-        metadata = cls.create_metadata(jobs, fireworks)
-        swarmflow = SwarmFlow(fireworks=fireworks, links_dict=dependencies, metadata=metadata, name=swarmflow_name)
+        swarmflow = SwarmFlow(fireworks=fireworks, links_dict=dependencies, name=swarmflow_name)
         cls.dump_swarmflow(swarmflow, dir_name, swarmflow_name)
         return swarmflow

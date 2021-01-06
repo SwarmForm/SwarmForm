@@ -1,5 +1,8 @@
 from swarmform.core.swarm_dag import Node, DAG
 from random import randrange
+from swarmform.util.resource_wastage import calc_wastage
+from copy import deepcopy
+
 
 def get_tasks_at_level(workflow, level):
 
@@ -224,9 +227,11 @@ def assign_parent_to_clusters(task):
                     cluster.set_sequential_ids(sequential_ids)
                     # Set the information about the cluster space available in the cluster to fit other nodes
                     # to reduce the resource utilization.
-                    cluster.set_cluster_space([cls_info[cluster.get_fw_ids_to_cluster_sequentially()[1]]['exec_time'], core_space])
+                    cluster.set_cluster_space([cls_info[cluster.get_fw_ids_to_cluster_sequentially()[1]]['exec_time'],
+                                               core_space])
                     # Add the children to new clustered node
                     for tsk in cluster_c:
+                        cluster.set_cluster_node(tsk)
                         children = tsk.get_children()
                         if children is None:
                             continue
@@ -294,6 +299,7 @@ def assign_parent_to_clusters(task):
                         [cls_info[cluster.get_fw_ids_to_cluster_sequentially()[1]]['exec_time'], core_space])
                     # Add the children to new clustered node
                     for tsk in cluster_c:
+                        cluster.set_cluster_node(tsk)
                         children = tsk.get_children()
                         if children is None:
                             continue
@@ -423,11 +429,13 @@ def wpa_clustering(workflow):
         # Resource balance
         resource_balance(cls_at_level, tasks_at_level_sorted, workflow)
     workflow.update_links()
+
+    calc_wastage(workflow, 'wpa')
     return workflow
 
 
 def cluster_vertically(workflow):
-    for level in range(1,workflow.get_height()):
+    for level in range(1, workflow.get_height()):
         tsk_at_level = get_tasks_at_level(workflow, level)
         for task in tsk_at_level:
             m_task = task
@@ -436,11 +444,11 @@ def cluster_vertically(workflow):
             cls_info = {}
             cls_info[task.get_fw_id()] = {'exec_time': task.get_exec_time(), 'cores': task.get_num_cores()}
             while(True):
-                if(task.get_children() is None):
+                if task.get_children() is None:
                     break
-                if(len(task.get_children())==1):
+                if len(task.get_children()) == 1:
                     child = task.get_children()[0]
-                    if(len(child.get_parents())==1):
+                    if len(child.get_parents()) == 1:
                         cls_info[child.get_fw_id()] = {'exec_time': child.get_exec_time(), 'cores': child.get_num_cores()}
                         cluster_c.append(child)
                         task = child
@@ -448,7 +456,7 @@ def cluster_vertically(workflow):
                         break
                 else:
                     break
-            if(len(cls_info)>1):
+            if len(cls_info) > 1:
                 # print(cls_info)
                 sequential_id = []
                 cluster = Node(fw_id=m_task.get_fw_id(), level=level,
@@ -458,6 +466,7 @@ def cluster_vertically(workflow):
                 cluster.set_cluster_info(cls_info)
                 for cls in cluster_c:
                     sequential_id.append(cls.get_fw_id())
+                    cluster.set_cluster_node(cls)
                 cluster.set_sequential_ids(sequential_id)
                 if not m_task.get_parents() is None:
                     for parent in m_task.get_parents():
