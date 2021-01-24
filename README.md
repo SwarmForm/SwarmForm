@@ -19,7 +19,7 @@ Following prerequisites should be installed to run SwarmForm.
 To install SwarmForm, simply type
 
 ```
-pip install swarmform
+pip install SwarmForm
 ```
 
 ### Basic usage
@@ -46,6 +46,10 @@ Cluster the fireworks in the SwarmFlow and save the new SwarmFlow to the databas
 ```
 sform cluster -sf <SwarmFlow ID>
 ```
+or
+```
+sform cluster -sf <SwarmFlow ID> -a <clustering algorithm rac/wpa> -cc <cluster count>
+```
 
 Reset and re-initialize the SwarmForm database
 ```
@@ -54,7 +58,7 @@ sform reset
 
 ## Built With
 
-* [Python](http://www.dropwizard.io/1.0.2/docs/) 
+* [Python](https://www.python.org/) 
 * [FireWorks](https://github.com/materialsproject/fireworks)
 
 ## Authors
@@ -69,4 +73,4 @@ sform reset
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](http://badges.mit-license.org)
 
 - **[MIT license](https://github.com/SwarmForm/SwarmForm/blob/master/LICENSE)**
-- Copyright 2020 © SwarmForm.
+- Copyright 2021 © SwarmForm.
