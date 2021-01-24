@@ -102,7 +102,7 @@ def cluster_workflow(args):
     sp = get_sp(args)
     unclustered_sf = sp.get_sf_by_id(args.sf_id)
     unclustered_sf_fw_id = unclustered_sf.fws[0].fw_id
-    clustered_workflow = cluster_sf(sp, args.sf_id)
+    clustered_workflow = cluster_sf(sp, args.sf_id, args.algo, args.cc)
     sp.add_sf(clustered_workflow)
     sp.archive_wf(unclustered_sf_fw_id)
     sp.m_logger.info('Workflow with id {} clustered succesfully'.format(args.sf_id))
@@ -127,6 +127,9 @@ def sform():
     parser.add_argument('--logdir', help='path to a directory for logging')
     parser.add_argument('--loglvl', help='level to print log messages', default='INFO')
     parser.add_argument('-s', '--silencer', help='shortcut to mute log messages', action='store_true')
+    parser.add_argument('-sf', '--sf_id', help='Id of the SwarmFlow to cluster', default=None, type=int)
+    parser.add_argument('-a', '--algo', help='Clustering algorithm (wpa or rac)', default='rac', type=str)
+    parser.add_argument('-cc', help='Cluster count per horizontal level', default=5, type=int)
 
     subparsers = parser.add_subparsers(help='command', dest='command')
 
@@ -165,6 +168,8 @@ def sform():
                                               help='Cluster the fireworks in the SwarmFlow and save the new '
                                                    'SwarmFlow to the database')
     cluster_wf_parser.add_argument('-sf', '--sf_id', help='Id of the SwarmFlow to cluster', default=None, type=int)
+    cluster_wf_parser.add_argument('-a', '--algo', help='Clustering algorithm (wpa or rac)', default='rac', type=str)
+    cluster_wf_parser.add_argument('-cc', help='Number of clusters per horizontal level', default=5, type=int)
     cluster_wf_parser.set_defaults(func=cluster_workflow)
 
     args = parser.parse_args()
